@@ -109,7 +109,9 @@ try {
     if (res.ok) {
         artiste = await res.json();
     }
-} catch { /* fallback */ }
+} catch {
+    /* fallback */
+}
 
 if (!artiste) {
     artiste = fallbacks[id ?? ""] ?? null;
