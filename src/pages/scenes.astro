@@ -1,0 +1,157 @@
+﻿---
+/**
+ * src/pages/scenes.astro
+ * Page Scènes du festival Lumimix
+ *
+ * PocketBase collection "scenes" :
+ *   nom (string), soustitre (string), localisation (string),
+ *   capacite (string), description (string), image (file)
+ */
+
+import Layout from "../layouts/Layout.astro";
+import Footer from "../components/Footer.astro";
+
+interface Scene {
+    id: string;
+    nom: string;
+    soustitre: string;
+    localisation: string;
+    capacite: string;
+    description: string;
+    image: string;
+    collectionId: string;
+}
+
+let scenes: Scene[] = [];
+
+try {
+    const res = await fetch(
+        "http://127.0.0.1:8090/api/collections/scenes/records?sort=ordre",
+        { signal: AbortSignal.timeout(3000) },
+    );
+    if (res.ok) {
+        const data = await res.json();
+        scenes = data.items ?? [];
+    }
+} catch { /* fallback */ }
+
+if (scenes.length === 0) {
+    scenes = [
+        {
+            id: "1",
+            collectionId: "",
+            nom: "Scène principale",
+            soustitre: "L'Horizon Lumineux",
+            localisation: "Face au lac de Malsaucy",
+            capacite: "15 000 personnes",
+            description: [
+                "La scène principale du festival offre une vue imprenable sur le lac.",
+                "C'est ici que se déroulent les performances les plus spectaculaires avec un écran géant projeté sur l'eau, des chorégraphies de drones lumineux synchronisées avec la musique et un système de lasers monumentaux.",
+                "L'acoustique exceptionnelle et le sound system L-Acoustics garantissent une meilleure qualité sonore optimale.",
+                "Cette scène accueille les plus grandes têtes d'affiche et propose les sets électro les plus puissants du festival.",
+            ].join("\n"),
+            image: "",
+        },
+        {
+            id: "2",
+            collectionId: "",
+            nom: "Scène secondaire",
+            soustitre: "La Clairière Sonore",
+            localisation: "Dans les bois, au cœur de la presqu'île",
+            capacite: "5 000 personnes",
+            description: [
+                "Nichée dans un écrin de verdure, La Clairière Sonore offre une atmosphère intimiste et immersive.",
+                "Des installations lumineuses interactives sont dispersées entre les arbres, créant une ambiance féerique.",
+                "Cette scène est dédiée aux sonorités plus douces : reggae, dub, downtempo et mélodies contemplatives.",
+                "Le cadre naturel et les effets visuels organiques créent une expérience unique où la nature rencontre la technologie.",
+                "Un espace parfait pour se poser, profiter de la musique et découvrir des univers artistiques variés.",
+            ].join("\n"),
+            image: "",
+        },
+    ];
+}
+
+function imageUrl(scene: Scene) {
+    if (!scene.image) return "";
+    return `http://127.0.0.1:8090/api/files/${scene.collectionId}/${scene.id}/${scene.image}`;
+}
+---
+
+<Layout>
+    <!-- ── En-tête décoratif ── -->
+    <div class="relative overflow-hidden bg-linear-to-b from-[#e8705a] via-[#c0407e] to-[#ede8d5] h-32">
+        <img src="/header.png" alt="" aria-hidden="true"
+             class="absolute top-0 left-0 w-full h-auto pointer-events-none opacity-70"/>
+        <img src="/character.png" alt="" aria-hidden="true"
+             class="absolute top-0 left-0 w-full h-auto pointer-events-none opacity-50"/>
+    </div>
+
+    <div class="bg-[#ede8d5] px-6 py-10 max-w-2xl mx-auto">
+
+        <!-- ══ TITRE ══ -->
+        <h1 class="text-3xl font-black uppercase tracking-tight text-[#e8705a] mb-10">
+            Les scènes de Lumimix
+        </h1>
+
+        <!-- ══ LISTE DES SCÈNES ══ -->
+        <div class="space-y-16">
+            {scenes.map((scene) => {
+                const paragraphes = scene.description.split("\n").filter(Boolean);
+                const url = imageUrl(scene);
+                return (
+                    <section>
+                        <!-- Titre scène -->
+                        <h2 class="text-base font-black uppercase tracking-wide text-[#1a1a2e] mb-4">
+                            {scene.nom} –{" "}
+                            <span class="text-[#e8705a]">{scene.soustitre}</span>
+                        </h2>
+
+                        <!-- Photo -->
+                        <div class="w-full rounded-2xl overflow-hidden bg-[#c8b8e8] mb-5 aspect-video">
+                            {url ? (
+                                <img src={url} alt={`Scène ${scene.nom}`}
+                                     class="w-full h-full object-cover"/>
+                            ) : (
+                                <img src="/festival-scene.jpg" alt={`Scène ${scene.nom}`}
+                                     class="w-full h-full object-cover"
+                                     onerror="this.parentElement.style.background='#c8b8e8'"/>
+                            )}
+                        </div>
+
+                        <!-- Localisation + Capacité -->
+                        <p class="text-xs font-black uppercase tracking-wide text-[#e8705a] mb-0.5">
+                            Localisation : <span class="text-[#c0407e]">{scene.localisation}</span>
+                        </p>
+                        <p class="text-xs font-black uppercase tracking-wide text-[#e8705a] mb-4">
+                            Capacité : <span class="text-[#c0407e]">{scene.capacite}</span>
+                        </p>
+
+                        <!-- Description -->
+                        <div class="space-y-3 text-sm text-[#333] leading-relaxed">
+                            {paragraphes.map((p: string) => <p>{p}</p>)}
+                        </div>
+                    </section>
+                );
+            })}
+        </div>
+
+        <!-- ══ CTA ══ -->
+        <div class="flex flex-wrap gap-3 mt-14 mb-4">
+            <a href="/programme"
+               class="inline-block px-6 py-3 rounded-full text-white font-black uppercase
+                      tracking-widest text-xs shadow active:scale-95 transition-transform"
+               style="background:linear-gradient(135deg,#e8705a,#c0407e)">
+                Programme complet
+            </a>
+            <a href="/artistes"
+               class="inline-block px-6 py-3 rounded-full text-white font-black uppercase
+                      tracking-widest text-xs shadow active:scale-95 transition-transform"
+               style="background:linear-gradient(135deg,#e8705a,#c0407e)">
+                Autres artistes
+            </a>
+        </div>
+
+    </div>
+
+    <Footer />
+</Layout>

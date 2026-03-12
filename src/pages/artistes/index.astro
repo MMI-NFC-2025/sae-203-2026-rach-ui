@@ -1,0 +1,155 @@
+﻿---
+/**
+ * src/pages/artistes/index.astro
+ * Page liste des artistes – Lumimix 2026
+ *
+ * PocketBase collection "artistes" :
+ *   prenom (string), nom (string), image (file),
+ *   jour (string), horaire (string), scene (string),
+ *   bio_courte (string), ordre (number)
+ */
+
+import Layout from "../../layouts/Layout.astro";
+import Footer from "../../components/Footer.astro";
+
+interface Artiste {
+    id: string;
+    collectionId: string;
+    prenom: string;
+    nom: string;
+    image: string;
+    jour: string;
+    horaire: string;
+    scene: string;
+    bio_courte: string;
+    ordre: number;
+}
+
+let artistes: Artiste[] = [];
+
+try {
+    const res = await fetch(
+        "http://127.0.0.1:8090/api/collections/artistes/records?sort=ordre&perPage=50",
+        { signal: AbortSignal.timeout(3000) },
+    );
+    if (res.ok) {
+        const data = await res.json();
+        artistes = data.items ?? [];
+    }
+} catch { /* fallback */ }
+
+if (artistes.length === 0) {
+    artistes = [
+        {
+            id: "1", collectionId: "",
+            prenom: "David", nom: "Guetta", image: "",
+            jour: "Vendredi 7 Août", horaire: "01H15 - 03H00",
+            scene: "Scène Principale - L'Horizon Lumineux",
+            bio_courte: "DJ et producteur français mondialement reconnu, pionnier de l'EDM et de la house progressive.\n\nDes hits planétaires et une énergie électrisante pour clôturer la première nuit.",
+            ordre: 1,
+        },
+        {
+            id: "2", collectionId: "",
+            prenom: "Martin", nom: "Garrix", image: "",
+            jour: "Samedi 8 Août", horaire: "01H15 - 03H00",
+            scene: "Scène Principale - L'Horizon Lumineux",
+            bio_courte: "Producteur néerlandais, figure emblématique de la scène électro mondiale.\n\nProgressive house et EDM au sommet pour une nuit fusion inoubliable.",
+            ordre: 2,
+        },
+        {
+            id: "3", collectionId: "",
+            prenom: "Charlotte de", nom: "Witte", image: "",
+            jour: "Dimanche 9 Août", horaire: "01H15 - 03H00",
+            scene: "Scène Principale - L'Horizon Lumineux",
+            bio_courte: "DJ belge, reine de la techno sombre et puissante.\n\nElle clôture le festival avec une performance intense et hypnotique.",
+            ordre: 3,
+        },
+    ];
+}
+
+function imageUrl(a: Artiste) {
+    if (!a.image || !a.collectionId) return "";
+    return `http://127.0.0.1:8090/api/files/${a.collectionId}/${a.id}/${a.image}`;
+}
+---
+
+<Layout>
+    <!-- ── En-tête décoratif ── -->
+    <div class="relative overflow-hidden bg-linear-to-b from-[#e8705a] via-[#c0407e] to-[#ede8d5] h-32">
+        <img src="/header.png" alt="" aria-hidden="true"
+             class="absolute top-0 left-0 w-full h-auto pointer-events-none opacity-70"/>
+        <img src="/character.png" alt="" aria-hidden="true"
+             class="absolute top-0 left-0 w-full h-auto pointer-events-none opacity-50"/>
+    </div>
+
+    <div class="bg-[#ede8d5] px-6 py-10 max-w-2xl mx-auto">
+
+        <!-- ══ TITRE ══ -->
+        <h1 class="text-3xl font-black uppercase tracking-tight mb-10">
+            <span class="text-[#e8705a]">Les artistes de </span>
+            <span class="text-[#1a1a2e]">Lumimix 2026</span>
+        </h1>
+
+        <!-- ══ LISTE ARTISTES ══ -->
+        <div class="space-y-16">
+            {artistes.map((a) => {
+                const url = imageUrl(a);
+                const paragraphes = a.bio_courte.split("\n").filter(Boolean);
+                return (
+                    <article>
+                        <!-- Nom -->
+                        <h2 class="text-2xl font-black uppercase tracking-tight mb-4">
+                            <span class="text-[#1a1a2e]">{a.prenom} </span>
+                            <span class="text-[#e8705a]">{a.nom}</span>
+                        </h2>
+
+                        <!-- Photo -->
+                        <div class="w-full aspect-video rounded-xl overflow-hidden bg-[#3d1080] mb-5">
+                            {url ? (
+                                <img src={url} alt={`${a.prenom} ${a.nom}`}
+                                     class="w-full h-full object-cover"/>
+                            ) : (
+                                <img src={`/artiste-${a.id}.jpg`} alt={`${a.prenom} ${a.nom}`}
+                                     class="w-full h-full object-cover"
+                                     onerror="this.parentElement.style.background='#3d1080'"/>
+                            )}
+                        </div>
+
+                        <!-- Date / Scène -->
+                        <p class="text-xs font-black uppercase tracking-wide text-[#e8705a] mb-0.5">
+                            {a.jour} - {a.horaire}
+                        </p>
+                        <p class="text-xs font-black uppercase tracking-wide text-[#e8705a] mb-4">
+                            {a.scene}
+                        </p>
+
+                        <!-- Bio courte -->
+                        <div class="space-y-3 text-sm text-[#333] leading-relaxed mb-6">
+                            {paragraphes.map((p: string) => <p>{p}</p>)}
+                        </div>
+
+                        <!-- CTA -->
+                        <div class="flex">
+                            <a href={`/artistes/${a.id}`}
+                               class="inline-block px-8 py-3 rounded-full text-white font-black
+                                      uppercase tracking-widest text-xs shadow active:scale-95
+                                      transition-transform"
+                               style="background:linear-gradient(135deg,#e8705a,#3d1080)">
+                                En savoir plus
+                            </a>
+                        </div>
+                    </article>
+                );
+            })}
+        </div>
+    </div>
+
+    <!-- Bande décorative -->
+    <div class="relative h-32 overflow-hidden mt-10"
+         style="background:linear-gradient(to bottom,#ede8d5,#3d1080)">
+        <img src="/header.png" alt="" aria-hidden="true"
+             class="absolute bottom-0 left-0 w-full h-auto pointer-events-none opacity-40"/>
+    </div>
+
+    <Footer />
+</Layout>

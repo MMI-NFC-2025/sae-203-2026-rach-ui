@@ -1,0 +1,231 @@
+---
+/**
+ * src/pages/artistes/[id].astro
+ * Page détail d'un artiste – Lumimix 2026
+ *
+ * PocketBase collection "artistes" :
+ *   prenom (string), nom (string), image (file),
+ *   jour (string), horaire (string), scene (string), genre (string),
+ *   bio (string), lumimix_texte (string), duree (string)
+ */
+
+import Layout from "../../layouts/Layout.astro";
+import Footer from "../../components/Footer.astro";
+
+const { id } = Astro.params;
+
+interface Artiste {
+    id: string;
+    collectionId: string;
+    prenom: string;
+    nom: string;
+    image: string;
+    jour: string;
+    horaire: string;
+    scene: string;
+    genre: string;
+    bio: string;
+    lumimix_texte: string;
+    duree: string;
+}
+
+// Fallback data par id
+const fallbacks: Record<string, Artiste> = {
+    "1": {
+        id: "1", collectionId: "",
+        prenom: "David", nom: "Guetta", image: "",
+        jour: "Vendredi 7 Août 2026", horaire: "01h15 - 03h00",
+        scene: "L'Horizon Lumineux (Scène Principale)",
+        genre: "House / EDM / Progressive House",
+        bio: [
+            "DJ et producteur français mondialement reconnu, David Guetta est l'un des pionniers de l'EDM et de la house progressive.",
+            "Avec plus de 50 millions d'albums vendus et des collaborations avec les plus grands artistes internationaux, il a révolutionné la scène électronique mondiale.",
+            "Des hits planétaires comme \"Titanium\", \"When Love Takes Over\" ou \"Memories\" ont marqué toute une génération.",
+            "Son énergie électrisante et sa capacité à faire vibrer les foules en font une légende vivante de la musique électronique.",
+        ].join("\n"),
+        lumimix_texte: [
+            "Pour clôturer la première nuit du festival, David Guetta vous propose un set exceptionnel mêlant ses plus grands succès et des tracks inédits.",
+            "Accompagné d'un spectacle de drones lumineux et de projections sur le lac, cette performance promet d'être un moment inoubliable.",
+            "Une clôture magistrale pour inaugurer Lumimix dans la magie de la nuit.",
+        ].join("\n"),
+        duree: "1h45",
+    },
+    "2": {
+        id: "2", collectionId: "",
+        prenom: "Martin", nom: "Garrix", image: "",
+        jour: "Samedi 8 Août 2026", horaire: "01h15 - 03h00",
+        scene: "L'Horizon Lumineux (Scène Principale)",
+        genre: "Progressive House / Future Rave / EDM",
+        bio: [
+            "Producteur néerlandais, Martin Garrix est l'une des figures les plus emblématiques de la scène électro mondiale.",
+            "À seulement 27 ans, il cumule des centaines de millions de streams et des collaborations avec Dua Lipa, Bebe Rexha ou encore U2.",
+            "Son titre phare \"Animals\" a propulsé sa carrière au sommet des charts mondiaux.",
+        ].join("\n"),
+        lumimix_texte: [
+            "Martin Garrix prend les commandes de la scène principale pour la nuit La Fusion, mêlant progressive house et future rave.",
+            "Un set visuellement époustouflant synchronisé avec les drones et les lasers du festival.",
+        ].join("\n"),
+        duree: "1h45",
+    },
+    "3": {
+        id: "3", collectionId: "",
+        prenom: "Charlotte de", nom: "Witte", image: "",
+        jour: "Dimanche 9 Août 2026", horaire: "01h15 - 03h00",
+        scene: "L'Horizon Lumineux (Scène Principale)",
+        genre: "Techno / Dark Techno",
+        bio: [
+            "DJ et productrice belge, Charlotte de Witte est la reine incontestée de la techno sombre et hypnotique.",
+            "Ses sets minimalistes et intenses transportent les dancefloors dans des dimensions sonores inédites.",
+            "Elle clôture Lumimix avec une performance qui promet d'être à la hauteur de son immense talent.",
+        ].join("\n"),
+        lumimix_texte: [
+            "Pour L'Apogée, dernière nuit du festival, Charlotte de Witte délivre un set techno intense et hypnotique.",
+            "Une fermeture en beauté dans l'obscurité totale, avec les seuls drones lumineux comme éclairage.",
+        ].join("\n"),
+        duree: "1h45",
+    },
+};
+
+let artiste: Artiste | null = null;
+
+try {
+    const res = await fetch(
+        `http://127.0.0.1:8090/api/collections/artistes/records/${id}`,
+        { signal: AbortSignal.timeout(3000) },
+    );
+    if (res.ok) {
+        artiste = await res.json();
+    }
+} catch { /* fallback */ }
+
+if (!artiste) {
+    artiste = fallbacks[id ?? ""] ?? null;
+}
+
+// 404 si introuvable
+if (!artiste) {
+    return Astro.redirect("/404");
+}
+
+const imageUrl = artiste.image && artiste.collectionId
+    ? `http://127.0.0.1:8090/api/files/${artiste.collectionId}/${artiste.id}/${artiste.image}`
+    : "";
+
+const bioParagraphes = artiste.bio.split("\n").filter(Boolean);
+const lumimixParagraphes = artiste.lumimix_texte.split("\n").filter(Boolean);
+---
+
+<Layout>
+    <!-- ── En-tête décoratif ── -->
+    <div class="relative overflow-hidden bg-linear-to-b from-[#e8705a] via-[#c0407e] to-[#ede8d5] h-32">
+        <img src="/cloud.svg" alt="" aria-hidden="true"
+             class="absolute top-0 left-0 w-full h-auto pointer-events-none opacity-70"/>
+    </div>
+
+    <div class="bg-[#ede8d5] px-6 py-10 max-w-2xl mx-auto space-y-8">
+
+        <!-- ══ NOM ARTISTE ══ -->
+        <h1 class="text-3xl font-black uppercase tracking-tight">
+            <span class="text-[#1a1a2e]">{artiste.prenom} </span>
+            <span class="text-[#e8705a]">{artiste.nom}</span>
+        </h1>
+
+        <!-- ══ PHOTO ══ -->
+        <div class="w-full aspect-video rounded-xl overflow-hidden bg-[#3d1080]">
+            {imageUrl ? (
+                <img src={imageUrl} alt={`${artiste.prenom} ${artiste.nom}`}
+                     class="w-full h-full object-cover"/>
+            ) : (
+                <img src={`/artiste-${artiste.id}.jpg`} alt={`${artiste.prenom} ${artiste.nom}`}
+                     class="w-full h-full object-cover"
+                     onerror="this.parentElement.style.background='#3d1080'"/>
+            )}
+        </div>
+
+        <!-- ══ DATE / SCÈNE / GENRE ══ -->
+        <div>
+            <p class="text-xs font-black uppercase tracking-wide text-[#e8705a] leading-relaxed">
+                {artiste.jour} {artiste.horaire}
+            </p>
+            <p class="text-xs font-black uppercase tracking-wide text-[#e8705a] leading-relaxed">
+                Scène principale - {artiste.scene}
+            </p>
+            <p class="text-xs font-black uppercase tracking-wide text-[#e8705a] leading-relaxed">
+                Genre : {artiste.genre}
+            </p>
+        </div>
+
+        <!-- ══ À PROPOS ══ -->
+        <section>
+            <h2 class="text-sm font-black uppercase tracking-widest text-[#e8705a] mb-4">
+                À propos
+            </h2>
+            <div class="space-y-3 text-sm text-[#333] leading-relaxed">
+                {bioParagraphes.map((p: string) => <p>{p}</p>)}
+            </div>
+        </section>
+
+        <!-- ══ CE QUI VOUS ATTEND ══ -->
+        <section>
+            <h2 class="text-sm font-black uppercase tracking-widest text-[#e8705a] mb-4">
+                Ce qui vous attend à Lumimix
+            </h2>
+            <div class="space-y-3 text-sm text-[#333] leading-relaxed">
+                {lumimixParagraphes.map((p: string) => <p>{p}</p>)}
+            </div>
+        </section>
+
+        <!-- ══ INFOS PRATIQUES ══ -->
+        <section class="bg-white/60 rounded-2xl p-5">
+            <h2 class="text-sm font-black uppercase tracking-widest text-[#e8705a] mb-4">
+                Informations pratiques
+            </h2>
+            <dl class="space-y-1 text-sm text-[#333]">
+                <div class="flex gap-2">
+                    <dt class="font-black text-[#1a1a2e] shrink-0">Date :</dt>
+                    <dd>{artiste.jour}</dd>
+                </div>
+                <div class="flex gap-2">
+                    <dt class="font-black text-[#1a1a2e] shrink-0">Horaire :</dt>
+                    <dd>{artiste.horaire}</dd>
+                </div>
+                <div class="flex gap-2">
+                    <dt class="font-black text-[#1a1a2e] shrink-0">Scène :</dt>
+                    <dd>{artiste.scene}</dd>
+                </div>
+                <div class="flex gap-2">
+                    <dt class="font-black text-[#1a1a2e] shrink-0">Durée :</dt>
+                    <dd>{artiste.duree}</dd>
+                </div>
+            </dl>
+        </section>
+
+        <!-- ══ CTA ══ -->
+        <div class="flex flex-wrap gap-3 pb-4">
+            <a href="/programme"
+               class="inline-block px-6 py-3 rounded-full text-white font-black uppercase
+                      tracking-widest text-xs shadow active:scale-95 transition-transform"
+               style="background:linear-gradient(135deg,#e8705a,#c0407e)">
+                Programme complet
+            </a>
+            <a href="/artistes"
+               class="inline-block px-6 py-3 rounded-full text-white font-black uppercase
+                      tracking-widest text-xs shadow active:scale-95 transition-transform"
+               style="background:linear-gradient(135deg,#e8705a,#c0407e)">
+                Autres artistes
+            </a>
+        </div>
+
+    </div>
+
+    <!-- Bande décorative avant footer -->
+    <div class="relative h-48 overflow-hidden"
+         style="background:linear-gradient(to bottom,#ede8d5,#3d1080)">
+        <img src="/cloud.svg" alt="" aria-hidden="true"
+             class="absolute bottom-0 left-0 w-full h-auto pointer-events-none opacity-50"/>
+        <img src="/drone.svg" alt="" aria-hidden="true"
+             class="absolute bottom-0 left-0 w-full h-auto pointer-events-none opacity-60"/>
+    </div>
+
+    <Footer />
+</Layout>
