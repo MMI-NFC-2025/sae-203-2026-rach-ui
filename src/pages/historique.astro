@@ -3,8 +3,8 @@
  * src/pages/historique.astro
  * Page Historique du festival Lumimix
  *
- * PocketBase collections utilisÈes :
- *   - "equipe"   : nom, role, departement (string: "Direction"|"Son"|"LumiËre"|"Logistique"|"Communication")
+ * PocketBase collections utilis√©es :
+ *   - "equipe"   : nom, role, departement (string: "Direction"|"Son"|"Lumi√®re"|"Logistique"|"Communication")
  */
 
 import Layout from "../layouts/Layout.astro";
@@ -41,7 +41,7 @@ if (equipe.length === 0) {
         {
             departement: "Direction",
             nom: "Sarah Fontaine",
-            role: "Coordination gÈnÈrale",
+            role: "Coordination g√©n√©rale",
         },
         {
             departement: "Direction",
@@ -50,19 +50,19 @@ if (equipe.length === 0) {
         },
         { departement: "Son", nom: "Antoine Roussel", role: "" },
         { departement: "Son", nom: "Mathilde Perrin", role: "" },
-        { departement: "Son", nom: "Kevin Dubois LumiËre", role: "" },
+        { departement: "Son", nom: "Kevin Dubois Lumi√®re", role: "" },
         { departement: "Son", nom: "Camille Laurent", role: "" },
         { departement: "Son", nom: "Maxime Girard", role: "" },
         { departement: "Son", nom: "Julie Martinez", role: "" },
         { departement: "Logistique", nom: "Marc Lefebvre", role: "" },
-        { departement: "Logistique", nom: "Sophie Moreau SÈcuritÈ", role: "" },
+        { departement: "Logistique", nom: "Sophie Moreau S√©curit√©", role: "" },
         { departement: "Logistique", nom: "David Renault", role: "" },
         { departement: "Communication", nom: "Emma Durand", role: "" },
-        { departement: "Communication", nom: "LÈa Petit", role: "" },
+        { departement: "Communication", nom: "L√©a Petit", role: "" },
     ];
 }
 
-// Regrouper par dÈpartement
+// Regrouper par d√©partement
 const depts = equipe.reduce<Record<string, Membre[]>>((acc, m) => {
     (acc[m.departement] ??= []).push(m);
     return acc;
@@ -70,7 +70,7 @@ const depts = equipe.reduce<Record<string, Membre[]>>((acc, m) => {
 ---
 
 <Layout>
-    <!-- -- En-tÍte dÈcoratif avec calques -- -->
+    <!-- -- En-t√™te d√©coratif avec calques -- -->
     <div
         class="relative overflow-hidden bg-linear-to-b from-[#e8705a] via-[#c0407e] to-[#ede8d5] h-32"
     >
@@ -92,24 +92,24 @@ const depts = equipe.reduce<Record<string, Membre[]>>((acc, m) => {
             </h1>
             <div class="w-16 h-1 bg-[#c0407e] rounded-full mb-8"></div>
 
-            <!-- EXP…RIENCE UNIQUE -->
+            <!-- EXPÔøΩRIENCE UNIQUE -->
             <h2
                 class="text-lg font-black uppercase tracking-wide text-[#1a1a2e] mb-4"
             >
-                Lumimix, une expÈrience unique
+                Lumimix, une exp√©rience unique
             </h2>
             <div class="space-y-4 text-[#444] text-sm leading-relaxed">
                 <p>
-                    Vibrer au rythme de la musique, ressentir l'Ènergie des
-                    basses et s'Èmerveiller devant des jeux de lumiËre
+                    Vibrer au rythme de la musique, ressentir l'√©nergie des
+                    basses et s'√©merveiller devant des jeux de lumi√®re
                     hypnotisants. C'est Lumimix.
                 </p>
                 <p>
-                    Pendant 3 nuits, la presqu'Óle de Malsaucy se transforme en
+                    Pendant 3 nuits, la presqu'√Æle de Malsaucy se transforme en
                     un monde lumineux et sonore.
                 </p>
                 <p>
-                    Chaque set DJ raconte une histoire gr‚ce aux chorÈgraphies
+                    Chaque set DJ raconte une histoire gr√¢ce aux chor√©graphies
                     de drones lumineux et aux projections sur l'eau du lac.
                 </p>
             </div>
@@ -123,15 +123,15 @@ const depts = equipe.reduce<Record<string, Membre[]>>((acc, m) => {
                 Un lieu d'exception
             </h2>
             <p class="text-[#444] text-sm leading-relaxed mb-2">
-                La presqu'Óle de Malsaucy, prËs de Belfort, accueille dÈj‡ les
-                EurockÈennes et le festival RÈveaulac.
+                La presqu'√Æle de Malsaucy, pr√®s de Belfort, accueille d√©j√† les
+                Eurock√©ennes et le festival R√©veaulac.
             </p>
             <p class="text-[#444] text-sm leading-relaxed">
                 Un cadre naturel exceptionnel pour vivre Lumimix.
             </p>
         </section>
 
-        <!-- SÈparateur dÈcoratif nuages -->
+        <!-- SÔøΩparateur dÔøΩcoratif nuages -->
         <div class="relative h-20 overflow-hidden -mx-6">
             <img
                 src="/cloud.svg"
@@ -141,21 +141,21 @@ const depts = equipe.reduce<Record<string, Membre[]>>((acc, m) => {
             />
         </div>
 
-        <!-- -- …QUIPE -- -->
+        <!-- -- ÔøΩQUIPE -- -->
         <section>
             <h2
                 class="text-lg font-black uppercase tracking-[0.2em] text-[#1a1a2e] mb-6"
             >
-                …quipe
+                √âquipe
             </h2>
 
-            <!-- Photo Èquipe placeholder -->
+            <!-- Photo ÔøΩquipe placeholder -->
             <div
                 class="w-full aspect-3/2 rounded-2xl overflow-hidden bg-[#c8b8e8] mb-6 relative"
             >
                 <img
                     src="/equipe.jpg"
-                    alt="L'Èquipe Lumimix Festival"
+                    alt="L'√©quipe Lumimix Festival"
                     class="w-full h-full object-cover"
                     onerror="this.parentElement.querySelector('span').style.display='flex'"
                 />
@@ -163,11 +163,11 @@ const depts = equipe.reduce<Record<string, Membre[]>>((acc, m) => {
                     class="hidden absolute inset-0 items-center justify-center
                              text-white/60 font-bold uppercase tracking-widest text-sm"
                 >
-                    Photo Èquipe
+                    Photo √©quipe
                 </span>
             </div>
 
-            <!-- Liste membres par dÈpartement -->
+            <!-- Liste membres par dÔøΩpartement -->
             <div class="space-y-4 bg-white/70 backdrop-blur-sm rounded-2xl p-5">
                 {
                     Object.entries(depts).map(([dept, membres]) => (
@@ -180,13 +180,13 @@ const depts = equipe.reduce<Record<string, Membre[]>>((acc, m) => {
                                     <span>
                                         {m.role ? (
                                             <>
-                                                <strong>{m.nom}</strong> ∑{" "}
+                                                <strong>{m.nom}</strong> ÔøΩ{" "}
                                                 {m.role}
                                             </>
                                         ) : (
                                             m.nom
                                         )}
-                                        {i < membres.length - 1 ? " ∑ " : ""}
+                                        {i < membres.length - 1 ? " ÔøΩ " : ""}
                                     </span>
                                 ))}
                             </p>
@@ -208,17 +208,17 @@ const depts = equipe.reduce<Record<string, Membre[]>>((acc, m) => {
                     [
                         {
                             titre: "Inclusion",
-                            texte: "Un festival ouvert ‡ tous, o˘ chacun se sent accueilli dans une ambiance bienveillante et festive.",
+                            texte: "Un festival ouvert √† tous, o√π chacun se sent accueilli dans une ambiance bienveillante et festive.",
                             color: "#e87b5a",
                         },
                         {
-                            titre: "CrÈativitÈ",
-                            texte: "L'imagination prend vie ‡ travers des performances artistiques inÈdites et un festival en perpÈtuel renouvellement.",
+                            titre: "Cr√©ativit√©",
+                            texte: "L'imagination prend vie √† travers des performances artistiques in√©dites et un festival en perp√©tuel renouvellement.",
                             color: "#c0407e",
                         },
                         {
                             titre: "Divertissement",
-                            texte: "Trois nuits pensÈes pour offrir plaisir, dÈtente et moments inoubliables dans un cadre convivial.",
+                            texte: "Trois nuits pens√©es pour offrir plaisir, d√©tente et moments inoubliables dans un cadre convivial.",
                             color: "#3d1080",
                         },
                     ].map(({ titre, texte, color }) => (
@@ -245,27 +245,27 @@ const depts = equipe.reduce<Record<string, Membre[]>>((acc, m) => {
             </div>
         </section>
 
-        <!-- -- …DITION 2026 -- -->
+        <!-- -- ÔøΩDITION 2026 -- -->
         <section>
             <div class="rounded-2xl bg-[#1a1a2e] text-white p-6 space-y-4">
                 <p
                     class="text-xs font-black uppercase tracking-widest text-[#e87b5a]"
                 >
-                    …dition 2026 : "Nuits …lectriques"
+                    √âdition 2026 : "Nuits √âlectriques"
                 </p>
                 {
                     [
                         {
                             jour: "Vendredi",
-                            desc: "L'…veil ∑ L'Ènergie Èlectro monte",
+                            desc: "L'√âveil ‚Äî L'√ânergie √©lectro monte",
                         },
                         {
                             jour: "Samedi",
-                            desc: "La Fusion ∑ MÈlange des styles et ambiances",
+                            desc: "La Fusion ‚Äî M√©lange des styles et ambiances",
                         },
                         {
                             jour: "Dimanche",
-                            desc: "L'ApogÈe ∑ La clÙture magistrale",
+                            desc: "L'Apog√©e ‚Äî La cl√¥ture magistrale",
                         },
                     ].map(({ jour, desc }) => (
                         <div class="border-t border-white/10 pt-4">
