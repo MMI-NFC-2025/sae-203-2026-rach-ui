@@ -1,0 +1,71 @@
+---
+/**
+ * ProgrammeSection.astro — Section programme 3 jours
+ * Données depuis PocketBase collection "programme"
+ *   - jour     : string  ("VENDREDI 7 AOÛT" …)
+ *   - sous_titre: string ("Nuit fusion : électro, reggae, chill")
+ *   - date_iso : string  ("2026-08-07")
+ *   - ordre    : number
+ */
+
+interface Jour {
+    jour: string;
+    sous_titre: string;
+    date_iso: string;
+    ordre: number;
+}
+
+let jours: Jour[] = [];
+
+try {
+    const res = await fetch(
+        "http://127.0.0.1:8090/api/collections/programme/records?sort=ordre",
+        { signal: AbortSignal.timeout(3000) }
+    );
+    if (res.ok) {
+        const data = await res.json();
+        jours = data.items ?? [];
+    }
+} catch {
+    // fallback statique
+}
+
+if (jours.length === 0) {
+    jours = [
+        { jour: "VENDREDI 7 AOÛT",  sous_titre: "Soirée d'ouverture électro", date_iso: "2026-08-07", ordre: 1 },
+        { jour: "SAMEDI 8 AOÛT",    sous_titre: "Nuit fusion : électro, reggae, chill", date_iso: "2026-08-08", ordre: 2 },
+        { jour: "DIMANCHE 9 AOÛT",  sous_titre: "Clôture festive", date_iso: "2026-08-09", ordre: 3 },
+    ];
+}
+---
+
+<section class="bg-[#ede8d5] px-6 py-10 border-t border-[#d6d0bc]">
+    <h2 class="text-xs font-black uppercase tracking-[0.3em] text-[#c0407e] mb-6">
+        Programme
+    </h2>
+
+    <div class="space-y-0 divide-y divide-[#d6d0bc]">
+        {jours.map((j) => (
+            <div class="flex items-center justify-between py-5 gap-4">
+                <div class="flex-1 min-w-0">
+                    <p class="text-sm font-black uppercase tracking-wider text-[#1a1a2e]">
+                        {j.jour}
+                    </p>
+                    <p class="text-sm text-[#555] mt-0.5 truncate">
+                        {j.sous_titre}
+                    </p>
+                </div>
+                <a
+                    href={`/programme#${j.date_iso}`}
+                    class="shrink-0 px-4 py-2 rounded-full bg-[#1a1a2e] text-white
+                           text-xs font-black uppercase tracking-widest
+                           hover:bg-[#3d1080] active:scale-95
+                           transition-all duration-150 focus:outline-none
+                           focus-visible:ring-2 focus-visible:ring-[#3d1080]"
+                >
+                    En savoir plus
+                </a>
+            </div>
+        ))}
+    </div>
+</section>

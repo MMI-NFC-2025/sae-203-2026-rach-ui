@@ -1,0 +1,150 @@
+---
+/**
+ * ConceptSection.astro — Section "Le Concept" avec carrousel d'images
+ * et liste d'artistes depuis PocketBase.
+ *
+ * Collection PocketBase attendue : "artistes"
+ *   - nom     : string
+ *   - genre   : string  (e.g. "électro", "reggae")
+ *   - image   : file
+ *   - vedette : bool    (affiché dans le carrousel)
+ */
+
+let artistes: any[] = [];
+let error = false;
+
+try {
+    const res = await fetch(
+        "http://127.0.0.1:8090/api/collections/artistes/records?perPage=20&filter=vedette=true",
+        { signal: AbortSignal.timeout(3000) }
+    );
+    if (res.ok) {
+        const data = await res.json();
+        artistes = data.items ?? [];
+    }
+} catch {
+    // PocketBase non disponible — fallback statique
+    error = true;
+}
+
+// Données de fallback statiques si PocketBase absent
+const fallbackArtistes = [
+    "David Guetta", "Martin Garrix", "Kungs", "Ofenbach",
+    "Charlotte de Witte", "Petit Biscuit", "Manudigital",
+    "Ben Böhmer", "Thylacine", "Worakls",
+];
+
+const artisteNames = artistes.length > 0
+    ? artistes.map((a: any) => a.nom)
+    : fallbackArtistes;
+---
+
+<section class="bg-[#ede8d5] px-6 py-10">
+    <!-- Titre section -->
+    <h2 class="text-xs font-black uppercase tracking-[0.3em] text-[#c0407e] mb-6">
+        Le Concept
+    </h2>
+
+    <!-- Carrousel wrapper -->
+    <div class="relative w-full overflow-hidden rounded-2xl" id="concept-carousel">
+        <!-- Track -->
+        <div
+            id="carousel-track"
+            class="flex transition-transform duration-500 ease-in-out"
+        >
+            <!-- Slide 1 — image festival + texte -->
+            <div class="min-w-full">
+                <div class="relative w-full aspect-[4/3] rounded-2xl overflow-hidden bg-[#1a1a2e]">
+                    <!-- Image placeholder (remplace src par la vraie image) -->
+                    <img
+                        src="/festival-scene.jpg"
+                        alt="Scène du festival Lumimix"
+                        class="w-full h-full object-cover opacity-80"
+                        onerror="this.style.display='none'"
+                    />
+                    <!-- Overlay gradient bas pour lisibilité -->
+                    <div class="absolute inset-0 bg-linear-to-t from-black/70 via-transparent to-transparent"></div>
+                </div>
+
+                <!-- Texte sous l'image -->
+                <div class="mt-4 p-4 bg-white/60 backdrop-blur-sm rounded-xl">
+                    <p class="text-xs font-black uppercase tracking-widest text-[#c0407e] mb-1">
+                        Musique
+                    </p>
+                    <p class="text-sm text-[#333] mb-3">
+                        Les meilleurs DJs électro, reggae et chill.
+                        Des sets uniques qui racontent une histoire.
+                    </p>
+                    <p class="text-sm font-medium text-[#1a1a2e] leading-relaxed">
+                        {artisteNames.join(" · ")}
+                    </p>
+                </div>
+            </div>
+
+            <!-- Slide 2 — ambiance -->
+            <div class="min-w-full">
+                <div class="relative w-full aspect-[4/3] rounded-2xl overflow-hidden bg-[#3d1080]
+                            flex items-center justify-center">
+                    <p class="text-white/30 text-lg font-black uppercase tracking-widest text-center px-8">
+                        Lumières · Drones · Show
+                    </p>
+                </div>
+                <div class="mt-4 p-4 bg-white/60 backdrop-blur-sm rounded-xl">
+                    <p class="text-xs font-black uppercase tracking-widest text-[#c0407e] mb-1">
+                        Spectacle
+                    </p>
+                    <p class="text-sm text-[#333]">
+                        Des shows de drones uniques, des jeux de lumières époustouflants
+                        et des performances visuelles inoubliables.
+                    </p>
+                </div>
+            </div>
+        </div>
+
+        <!-- Bouton précédent -->
+        <button
+            id="carousel-prev"
+            aria-label="Diapositive précédente"
+            class="absolute left-2 top-[calc(50%-2rem)] -translate-y-1/2
+                   w-9 h-9 rounded-full bg-white/80 shadow-md
+                   flex items-center justify-center
+                   hover:bg-white active:scale-90 transition-all duration-150"
+        >
+            <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 20 20" fill="currentColor" class="w-5 h-5 text-[#1a1a2e]">
+                <path fill-rule="evenodd" d="M12.707 5.293a1 1 0 010 1.414L9.414 10l3.293 3.293a1 1 0 01-1.414 1.414l-4-4a1 1 0 010-1.414l4-4a1 1 0 011.414 0z" clip-rule="evenodd"/>
+            </svg>
+        </button>
+
+        <!-- Bouton suivant -->
+        <button
+            id="carousel-next"
+            aria-label="Diapositive suivante"
+            class="absolute right-2 top-[calc(50%-2rem)] -translate-y-1/2
+                   w-9 h-9 rounded-full bg-white/80 shadow-md
+                   flex items-center justify-center
+                   hover:bg-white active:scale-90 transition-all duration-150"
+        >
+            <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 20 20" fill="currentColor" class="w-5 h-5 text-[#1a1a2e]">
+                <path fill-rule="evenodd" d="M7.293 14.707a1 1 0 010-1.414L10.586 10 7.293 6.707a1 1 0 011.414-1.414l4 4a1 1 0 010 1.414l-4 4a1 1 0 01-1.414 0z" clip-rule="evenodd"/>
+            </svg>
+        </button>
+    </div>
+</section>
+
+<script>
+    const track  = document.getElementById("carousel-track") as HTMLElement;
+    const prev   = document.getElementById("carousel-prev");
+    const next   = document.getElementById("carousel-next");
+    if (!track || !prev || !next) throw new Error("carousel elements not found");
+
+    const slides = track.children.length;
+    let current  = 0;
+
+    function goTo(idx: number) {
+        current = (idx + slides) % slides;
+        track.style.transform = `translateX(-${current * 100}%)`;
+    }
+
+    prev.addEventListener("click", () => goTo(current - 1));
+    next.addEventListener("click", () => goTo(current + 1));
+</script>
