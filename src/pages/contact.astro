@@ -9,7 +9,7 @@ import Footer from "../components/Footer.astro";
 ---
 
 <Layout>
-    <!-- -- En-tête décoratif -- -->
+    <!-- -- En-tÃªte dcoratif -- -->
     <div
         class="relative overflow-hidden bg-linear-to-b from-[#e8705a] via-[#c0407e] to-[#ede8d5] h-32"
     >
@@ -38,18 +38,18 @@ import Footer from "../components/Footer.astro";
             <div class="w-16 h-1 bg-[#c0407e] rounded-full"></div>
         </div>
 
-        <!-- -- COORDONNÉES -- -->
+        <!-- -- COORDONNES -- -->
         <section>
             <h2
                 class="text-sm font-black uppercase tracking-widest text-[#1a1a2e] mb-5"
             >
-                Coordonnées
+                CoordonnÃ©es
             </h2>
             <dl class="space-y-3 text-sm">
                 {
                     [
                         {
-                            label: "Email général",
+                            label: "Email gÃ©nÃ©ral",
                             val: "contact@lumimix-festival.fr",
                         },
                         { label: "Presse", val: "presse@lumimix-festival.fr" },
@@ -58,7 +58,7 @@ import Footer from "../components/Footer.astro";
                             val: "partenariats@lumimix-festival.fr",
                         },
                         {
-                            label: "Accessibilité",
+                            label: "AccessibilitÃ©",
                             val: "accessibilite@lumimix-festival.fr",
                         },
                     ].map(({ label, val }) => (
@@ -77,11 +77,11 @@ import Footer from "../components/Footer.astro";
                     ))
                 }
                 <div class="flex flex-wrap gap-1">
-                    <dt class="font-black text-[#1a1a2e]">Téléphone :</dt>
+                    <dt class="font-black text-[#1a1a2e]">TÃ©lÃ©phone :</dt>
                     <dd class="text-[#333]">+33 (0)3 84 XX XX XX</dd>
                 </div>
                 <div>
-                    <p class="text-[#555]">Du lundi au vendredi, 9h – 18h</p>
+                    <p class="text-[#555]">Du lundi au vendredi, 9h Ã  18h</p>
                 </div>
                 <div>
                     <dt class="font-black text-[#1a1a2e]">Adresse postale</dt>
@@ -101,7 +101,7 @@ import Footer from "../components/Footer.astro";
                 id="contact-form"
                 class="bg-[#f5efe0] border border-[#e0d5be] rounded-2xl p-6 space-y-4"
             >
-                <!-- Nom + Prénom -->
+                <!-- Nom + PrÃ©nom -->
                 <div class="grid grid-cols-2 gap-4">
                     <div>
                         <label
@@ -126,7 +126,7 @@ import Footer from "../components/Footer.astro";
                             for="prenom"
                             class="block text-xs font-black uppercase tracking-widest text-[#1a1a2e] mb-1"
                         >
-                            Prénom
+                            PrÃ©nom
                         </label>
                         <input
                             id="prenom"
@@ -218,15 +218,15 @@ import Footer from "../components/Footer.astro";
             </form>
         </section>
 
-        <!-- -- RÉSEAUX SOCIAUX -- -->
+        <!-- -- RSEAUX SOCIAUX -- -->
         <section>
             <h2
                 class="text-sm font-black uppercase tracking-widest text-[#1a1a2e] mb-4"
             >
-                Réseaux sociaux
+                Rseaux sociaux
             </h2>
             <p class="text-sm text-[#444] leading-relaxed mb-4">
-                Suivez-nous pour toute l'actualité du festival, les annonces
+                Suivez-nous pour toute l'actualitÃ© du festival, les annonces
                 d'artistes et les coulisses de Lumimix.
             </p>
             <ul class="space-y-2 text-sm mb-4">
@@ -276,7 +276,7 @@ import Footer from "../components/Footer.astro";
             </h2>
             <p class="text-sm text-[#444] leading-relaxed mb-5">
                 Consultez notre FAQ dans la section Infos Pratiques pour trouver
-                rapidement des réponses aux questions les plus fréquentes.
+                rapidement des rÃ©ponses aux questions les plus frÃ©quentes.
             </p>
             <a
                 href="/infos-pratiques#faq"
@@ -319,7 +319,7 @@ import Footer from "../components/Footer.astro";
             );
             if (res.ok) {
                 if (status) {
-                    status.textContent = "Message envoyé !";
+                    status.textContent = "Message envoyÃ© !";
                     status.classList.remove("hidden", "text-red-600");
                     status.classList.add("text-[#3d1080]");
                 }
@@ -329,7 +329,7 @@ import Footer from "../components/Footer.astro";
             }
         } catch {
             if (status) {
-                status.textContent = "Erreur, réessayez.";
+                status.textContent = "Erreur, rÃ©essayez.";
                 status.classList.remove("hidden", "text-[#3d1080]");
                 status.classList.add("text-red-600");
             }
