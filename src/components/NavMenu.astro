@@ -1,0 +1,205 @@
+---
+/**
+ * NavMenu.astro — Full-screen mobile navigation overlay
+ *
+ * Usage:
+ *   <NavMenu />
+ *
+ * To open the menu, call window.openNavMenu() from any trigger button.
+ * The built-in close button (✕) hides it again.
+ *
+ * The component is hidden by default (translate-x-full) and slides in
+ * from the right when opened (translate-x-0).
+ */
+---
+
+<!-- Overlay backdrop -->
+<div
+    id="nav-backdrop"
+    aria-hidden="true"
+    class="fixed inset-0 z-40 bg-black/20 opacity-0 pointer-events-none transition-opacity duration-300"
+>
+</div>
+
+<!-- Navigation menu panel -->
+<div
+    id="nav-menu"
+    role="dialog"
+    aria-modal="true"
+    aria-label="Menu de navigation"
+    class="fixed inset-0 z-50
+    grid grid-rows-[auto_1fr]
+    bg-[#ede8d5]
+    translate-x-full
+    transition-transform duration-300 ease-in-out
+    min-h-screen w-full"
+>
+    <!-- ── Top bar: Logo + Close button ── -->
+    <header
+        class="grid grid-cols-[auto_1fr_auto] items-center gap-4 px-4 pt-4 pb-2"
+    >
+        <!-- Logo -->
+        <a
+            href="/"
+            aria-label="Lumimix Festival — Accueil"
+            class="flex items-center gap-2 group focus:outline-none focus-visible:ring-2 focus-visible:ring-black rounded-full"
+        >
+            <img
+                src="/logo.png"
+                alt="Lumimix Festival logo"
+                width="56"
+                height="56"
+                class="w-14 h-14 object-contain rounded-full group-hover:opacity-80 transition-opacity"
+            />
+        </a>
+
+        <!-- Spacer -->
+        <span></span>
+
+        <!-- Close button (✕) -->
+        <button
+            id="close-nav-menu"
+            type="button"
+            aria-label="Fermer le menu"
+            class="flex items-center justify-center
+        w-10 h-10
+        text-3xl leading-none font-light text-black
+        hover:opacity-50 active:scale-90
+        transition-all duration-150
+        focus:outline-none focus-visible:ring-2 focus-visible:ring-black rounded"
+        >
+            <!-- SVG close icon -->
+            <svg
+                xmlns="http://www.w3.org/2000/svg"
+                width="28"
+                height="28"
+                viewBox="0 0 24 24"
+                fill="none"
+                stroke="currentColor"
+                stroke-width="2.5"
+                stroke-linecap="round"
+                aria-hidden="true"
+            >
+                <line x1="18" y1="6" x2="6" y2="18"></line>
+                <line x1="6" y1="6" x2="18" y2="18"></line>
+            </svg>
+        </button>
+    </header>
+
+    <!-- ── Navigation links ── -->
+    <nav
+        aria-label="Navigation principale"
+        class="flex flex-col items-center justify-center gap-7 py-10"
+    >
+        <a
+            href="/festival"
+            class="text-2xl sm:text-3xl font-black uppercase tracking-wide text-black
+        hover:opacity-40 active:opacity-30
+        transition-opacity duration-150
+        focus:outline-none focus-visible:underline focus-visible:underline-offset-4"
+        >
+            Le Festival
+        </a>
+
+        <a
+            href="/programme"
+            class="text-2xl sm:text-3xl font-black uppercase tracking-wide text-black
+        hover:opacity-40 active:opacity-30
+        transition-opacity duration-150
+        focus:outline-none focus-visible:underline focus-visible:underline-offset-4"
+        >
+            Programme
+        </a>
+
+        <a
+            href="/artistes"
+            class="text-2xl sm:text-3xl font-black uppercase tracking-wide text-black
+        hover:opacity-40 active:opacity-30
+        transition-opacity duration-150
+        focus:outline-none focus-visible:underline focus-visible:underline-offset-4"
+        >
+            Artistes
+        </a>
+
+        <a
+            href="/scenes"
+            class="text-2xl sm:text-3xl font-black uppercase tracking-wide text-black
+        hover:opacity-40 active:opacity-30
+        transition-opacity duration-150
+        focus:outline-none focus-visible:underline focus-visible:underline-offset-4"
+        >
+            Scènes
+        </a>
+
+        <a
+            href="/infos-pratiques"
+            class="text-2xl sm:text-3xl font-black uppercase tracking-wide text-black
+        hover:opacity-40 active:opacity-30
+        transition-opacity duration-150
+        focus:outline-none focus-visible:underline focus-visible:underline-offset-4"
+        >
+            Infos Pratiques
+        </a>
+
+        <a
+            href="/contact"
+            class="text-2xl sm:text-3xl font-black uppercase tracking-wide text-black
+        hover:opacity-40 active:opacity-30
+        transition-opacity duration-150
+        focus:outline-none focus-visible:underline focus-visible:underline-offset-4"
+        >
+            Contact
+        </a>
+    </nav>
+</div>
+
+<script>
+    const menu = document.getElementById("nav-menu") as HTMLElement | null;
+    const backdrop = document.getElementById(
+        "nav-backdrop",
+    ) as HTMLElement | null;
+    const closeBtn = document.getElementById(
+        "close-nav-menu",
+    ) as HTMLButtonElement | null;
+
+    /** Trap focus inside the menu while it is open */
+    function getFocusableElements(): HTMLElement[] {
+        return Array.from(
+            menu?.querySelectorAll<HTMLElement>(
+                'a[href], button, [tabindex]:not([tabindex="-1"])',
+            ) ?? [],
+        );
+    }
+
+    function openMenu() {
+        menu?.classList.remove("translate-x-full");
+        menu?.classList.add("translate-x-0");
+        backdrop?.classList.remove("opacity-0", "pointer-events-none");
+        backdrop?.classList.add("opacity-100");
+        document.body.classList.add("overflow-hidden");
+        // Focus close button on open
+        closeBtn?.focus();
+    }
+
+    function closeMenu() {
+        menu?.classList.add("translate-x-full");
+        menu?.classList.remove("translate-x-0");
+        backdrop?.classList.add("opacity-0", "pointer-events-none");
+        backdrop?.classList.remove("opacity-100");
+        document.body.classList.remove("overflow-hidden");
+    }
+
+    // Close on ✕ click
+    closeBtn?.addEventListener("click", closeMenu);
+
+    // Close on backdrop click
+    backdrop?.addEventListener("click", closeMenu);
+
+    // Close on Escape key
+    document.addEventListener("keydown", (e) => {
+        if (e.key === "Escape") closeMenu();
+    });
+
+    // Expose open function globally so any trigger button can call it
+    (window as Window & { openNavMenu?: () => void }).openNavMenu = openMenu;
+</script>

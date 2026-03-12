@@ -1,20 +1,65 @@
 ---
-import '../styles/global.css';
+import "../styles/global.css";
+import NavMenu from "../components/NavMenu.astro";
 ---
 
 <!doctype html>
-<html lang="en">
+<html lang="fr">
 	<head>
 		<meta charset="UTF-8" />
-		<meta name="viewport" content="width=device-width" />
+		<meta name="viewport" content="width=device-width, initial-scale=1" />
 		<link rel="icon" type="image/svg+xml" href="/favicon.svg" />
 		<link rel="icon" href="/favicon.ico" />
 		<meta name="generator" content={Astro.generator} />
-		<title>Astro Basics</title>
+		<title>Lumimix Festival</title>
 	</head>
-	<body>
-		<slot />
+	<body class="bg-[#ede8d5] min-h-screen">
+		<!-- ── Site-wide top bar ── -->
+		<header class="relative flex items-center justify-between px-4 py-4">
+			<!-- Site logo / wordmark -->
+			<a
+				href="/"
+				aria-label="Lumimix Festival — Accueil"
+				class="flex items-center gap-2 focus:outline-none focus-visible:ring-2 focus-visible:ring-black rounded-full"
+			>
+				<img
+					src="/logo.png"
+					alt="Lumimix Festival"
+					width="56"
+					height="56"
+					class="w-14 h-14 object-contain rounded-full"
+				/>
+			</a>
+
+			<!-- Hamburger trigger (visible on all sizes; hide on lg if you add a desktop nav) -->
+			<button
+				type="button"
+				aria-label="Ouvrir le menu de navigation"
+				aria-expanded="false"
+				aria-controls="nav-menu"
+				onclick="window.openNavMenu?.()"
+				class="flex flex-col justify-center items-center gap-1.5 w-10 h-10
+					text-black
+					hover:opacity-60 active:scale-90
+					transition-all duration-150
+					focus:outline-none focus-visible:ring-2 focus-visible:ring-black rounded
+					lg:hidden"
+			>
+				<span class="block w-7 h-[2.5px] bg-current rounded-full"
+				></span>
+				<span class="block w-7 h-[2.5px] bg-current rounded-full"
+				></span>
+				<span class="block w-7 h-[2.5px] bg-current rounded-full"
+				></span>
+			</button>
+		</header>
+
+		<!-- ── Navigation overlay ── -->
+		<NavMenu />
+
+		<!-- ── Page content ── -->
+		<main>
+			<slot />
+		</main>
 	</body>
 </html>
-
-
