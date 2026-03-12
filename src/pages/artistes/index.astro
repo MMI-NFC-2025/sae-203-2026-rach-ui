@@ -1,7 +1,7 @@
-ï»¿---
+---
 /**
  * src/pages/artistes/index.astro
- * Page liste des artistes â€“ Lumimix 2026
+ * Page liste des artistes – Lumimix 2026
  *
  * PocketBase collection "artistes" :
  *   prenom (string), nom (string), image (file),
@@ -43,25 +43,25 @@ if (artistes.length === 0) {
         {
             id: "1", collectionId: "",
             prenom: "David", nom: "Guetta", image: "",
-            jour: "Vendredi 7 AoÃ»t", horaire: "01H15 - 03H00",
-            scene: "ScÃ¨ne Principale - L'Horizon Lumineux",
-            bio_courte: "DJ et producteur franÃ§ais mondialement reconnu, pionnier de l'EDM et de la house progressive.\n\nDes hits planÃ©taires et une Ã©nergie Ã©lectrisante pour clÃ´turer la premiÃ¨re nuit.",
+            jour: "Vendredi 7 Août", horaire: "01H15 - 03H00",
+            scene: "Scène Principale - L'Horizon Lumineux",
+            bio_courte: "DJ et producteur français mondialement reconnu, pionnier de l'EDM et de la house progressive.\n\nDes hits planétaires et une énergie électrisante pour clôturer la première nuit.",
             ordre: 1,
         },
         {
             id: "2", collectionId: "",
             prenom: "Martin", nom: "Garrix", image: "",
-            jour: "Samedi 8 AoÃ»t", horaire: "01H15 - 03H00",
-            scene: "ScÃ¨ne Principale - L'Horizon Lumineux",
-            bio_courte: "Producteur nÃ©erlandais, figure emblÃ©matique de la scÃ¨ne Ã©lectro mondiale.\n\nProgressive house et EDM au sommet pour une nuit fusion inoubliable.",
+            jour: "Samedi 8 Août", horaire: "01H15 - 03H00",
+            scene: "Scène Principale - L'Horizon Lumineux",
+            bio_courte: "Producteur néerlandais, figure emblématique de la scène électro mondiale.\n\nProgressive house et EDM au sommet pour une nuit fusion inoubliable.",
             ordre: 2,
         },
         {
             id: "3", collectionId: "",
             prenom: "Charlotte de", nom: "Witte", image: "",
-            jour: "Dimanche 9 AoÃ»t", horaire: "01H15 - 03H00",
-            scene: "ScÃ¨ne Principale - L'Horizon Lumineux",
-            bio_courte: "DJ belge, reine de la techno sombre et puissante.\n\nElle clÃ´ture le festival avec une performance intense et hypnotique.",
+            jour: "Dimanche 9 Août", horaire: "01H15 - 03H00",
+            scene: "Scène Principale - L'Horizon Lumineux",
+            bio_courte: "DJ belge, reine de la techno sombre et puissante.\n\nElle clôture le festival avec une performance intense et hypnotique.",
             ordre: 3,
         },
     ];
@@ -74,23 +74,23 @@ function imageUrl(a: Artiste) {
 ---
 
 <Layout>
-    <!-- â”€â”€ En-tÃªte dÃ©coratif â”€â”€ -->
+    <!-- -- En-tête décoratif -- -->
     <div class="relative overflow-hidden bg-linear-to-b from-[#e8705a] via-[#c0407e] to-[#ede8d5] h-32">
-        <img src="/header.png" alt="" aria-hidden="true"
+        <img src="/cloud.svg" alt="" aria-hidden="true"
              class="absolute top-0 left-0 w-full h-auto pointer-events-none opacity-70"/>
-        <img src="/character.png" alt="" aria-hidden="true"
+        <img src="/drone.svg" alt="" aria-hidden="true"
              class="absolute top-0 left-0 w-full h-auto pointer-events-none opacity-50"/>
     </div>
 
     <div class="bg-[#ede8d5] px-6 py-10 max-w-2xl mx-auto">
 
-        <!-- â•â• TITRE â•â• -->
+        <!-- -- TITRE -- -->
         <h1 class="text-3xl font-black uppercase tracking-tight mb-10">
             <span class="text-[#e8705a]">Les artistes de </span>
             <span class="text-[#1a1a2e]">Lumimix 2026</span>
         </h1>
 
-        <!-- â•â• LISTE ARTISTES â•â• -->
+        <!-- -- LISTE ARTISTES -- -->
         <div class="space-y-16">
             {artistes.map((a) => {
                 const url = imageUrl(a);
@@ -115,7 +115,7 @@ function imageUrl(a: Artiste) {
                             )}
                         </div>
 
-                        <!-- Date / ScÃ¨ne -->
+                        <!-- Date / Scène -->
                         <p class="text-xs font-black uppercase tracking-wide text-[#e8705a] mb-0.5">
                             {a.jour} - {a.horaire}
                         </p>
@@ -144,10 +144,10 @@ function imageUrl(a: Artiste) {
         </div>
     </div>
 
-    <!-- Bande dÃ©corative -->
+    <!-- Bande décorative -->
     <div class="relative h-32 overflow-hidden mt-10"
          style="background:linear-gradient(to bottom,#ede8d5,#3d1080)">
-        <img src="/header.png" alt="" aria-hidden="true"
+        <img src="/cloud.svg" alt="" aria-hidden="true"
              class="absolute bottom-0 left-0 w-full h-auto pointer-events-none opacity-40"/>
     </div>
 

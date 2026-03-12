@@ -1,4 +1,4 @@
-﻿---
+---
 /**
  * src/pages/programme.astro
  * Page Programme complet du festival Lumimix
@@ -39,38 +39,38 @@ try {
 if (jours.length === 0) {
     jours = [
         {
-            ordre: 1, jour: "Vendredi 7 Août", soustitre: "L'Éveil",
+            ordre: 1, jour: "Vendredi 7 Ao�t", soustitre: "L'�veil",
             artistes: ["Klara Nova", "Setareh Ebrahimi", "Milo Tanaka", "Jade Ferreira", "Samuel Okonkwo"],
         },
         {
-            ordre: 2, jour: "Samedi 8 Août", soustitre: "La Fusion",
-            artistes: ["Léa Moreau", "Soren Brix", "Naomi Okafor", "DJ Pulse", "Valentina Cruz", "Elias Berg"],
+            ordre: 2, jour: "Samedi 8 Ao�t", soustitre: "La Fusion",
+            artistes: ["L�a Moreau", "Soren Brix", "Naomi Okafor", "DJ Pulse", "Valentina Cruz", "Elias Berg"],
         },
         {
-            ordre: 3, jour: "Dimanche 9 Août", soustitre: "L'Apogée",
-            artistes: ["Marco Vidal", "Ananya Singh", "Mia Johansson", "Théo Lambert", "Rosa Delgado"],
+            ordre: 3, jour: "Dimanche 9 Ao�t", soustitre: "L'Apog�e",
+            artistes: ["Marco Vidal", "Ananya Singh", "Mia Johansson", "Th�o Lambert", "Rosa Delgado"],
         },
     ];
 }
 ---
 
 <Layout>
-    <!-- ── En-tête décoratif ── -->
+    <!-- -- En-t�te d�coratif -- -->
     <div class="relative overflow-hidden bg-linear-to-b from-[#e8705a] via-[#c0407e] to-[#ede8d5] h-32">
-        <img src="/header.png" alt="" aria-hidden="true"
+        <img src="/cloud.svg" alt="" aria-hidden="true"
              class="absolute top-0 left-0 w-full h-auto pointer-events-none opacity-70"/>
     </div>
 
     <div class="bg-[#ede8d5] px-6 py-10 max-w-2xl mx-auto">
 
-        <!-- ══ TITRE ══ -->
+        <!-- -- TITRE -- -->
         <h1 class="text-3xl font-black uppercase tracking-tight mb-2">
             <span class="text-[#3d1080]">Programme </span>
             <span class="text-[#e8705a]">complet</span>
         </h1>
         <div class="w-16 h-1 bg-[#c0407e] rounded-full mb-10"></div>
 
-        <!-- ══ ACCORDION ══ -->
+        <!-- -- ACCORDION -- -->
         <div class="space-y-3" id="accordion">
             {jours.map((j, i) => (
                 <div class="accordion-item rounded-2xl overflow-hidden border border-white/60"
@@ -104,7 +104,7 @@ if (jours.length === 0) {
                                 </span>
                             </span>
                         </span>
-                        <!-- icône + / − -->
+                        <!-- ic�ne + / - -->
                         <span class="accordion-icon text-2xl font-thin leading-none select-none"
                               style={
                                   i === 0 ? "color:#e8705a" :
@@ -114,7 +114,7 @@ if (jours.length === 0) {
                               aria-hidden="true">+</span>
                     </button>
 
-                    <!-- Panneau dépliable -->
+                    <!-- Panneau d�pliable -->
                     <div id={`panel-${i}`}
                          class="accordion-panel max-h-0 overflow-hidden transition-[max-height] duration-400 ease-in-out"
                          role="region">
@@ -145,17 +145,17 @@ if (jours.length === 0) {
             ))}
         </div>
 
-        <!-- ══ TÉLÉCHARGEMENT PDF ══ -->
+        <!-- -- T�L�CHARGEMENT PDF -- -->
         <div class="mt-16 mb-4 flex flex-col items-center gap-6">
-            <!-- drone SVG décoratif -->
+            <!-- drone SVG d�coratif -->
             <div class="w-40 opacity-80" aria-hidden="true">
-                <img src="/character.png" alt="" class="w-full h-auto"/>
+                <img src="/drone.svg" alt="" class="w-full h-auto"/>
             </div>
             <a href="/programme.pdf" download
                class="inline-flex items-center gap-3 px-8 py-3 rounded-full text-white font-black
                       uppercase tracking-widest text-sm shadow-lg active:scale-95 transition-transform"
                style="background:linear-gradient(135deg,#e8705a,#c0407e)">
-                <!-- icône download -->
+                <!-- ic�ne download -->
                 <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="currentColor"
                      class="w-5 h-5" aria-hidden="true">
                     <path fill-rule="evenodd"
@@ -167,12 +167,12 @@ if (jours.length === 0) {
         </div>
     </div>
 
-    <!-- ══ BANDE DÉCORATIVE avant footer ══ -->
+    <!-- -- BANDE D�CORATIVE avant footer -- -->
     <div class="relative h-40 overflow-hidden"
          style="background:linear-gradient(to bottom,#ede8d5,#3d1080)">
-        <img src="/header.png" alt="" aria-hidden="true"
+        <img src="/cloud.svg" alt="" aria-hidden="true"
              class="absolute bottom-0 left-0 w-full h-auto pointer-events-none opacity-50"/>
-        <img src="/character.png" alt="" aria-hidden="true"
+        <img src="/drone.svg" alt="" aria-hidden="true"
              class="absolute bottom-0 left-0 w-full h-auto pointer-events-none opacity-60"/>
     </div>
 
@@ -202,7 +202,7 @@ document.querySelectorAll<HTMLButtonElement>(".accordion-btn").forEach((btn) => 
 
         // Basculer celui-ci
         btn.setAttribute("aria-expanded", isOpen ? "false" : "true");
-        icon.textContent = isOpen ? "+" : "−";
+        icon.textContent = isOpen ? "+" : "-";
         panel.style.maxHeight = isOpen ? "0" : `${panel.scrollHeight}px`;
     });
 });

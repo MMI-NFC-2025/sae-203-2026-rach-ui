@@ -1,7 +1,7 @@
-ï»¿---
+---
 /**
  * src/pages/404.astro
- * Page d'erreur 404 thÃ©matique Lumimix Festival
+ * Page d'erreur 404 thématique Lumimix Festival
  */
 
 import Layout from "../layouts/Layout.astro";
@@ -9,16 +9,25 @@ import Footer from "../components/Footer.astro";
 ---
 
 <Layout>
-    <!-- â”€â”€ En-tÃªte dÃ©coratif â”€â”€ -->
-    <div class="relative overflow-hidden bg-linear-to-b from-[#e8705a] via-[#c0407e] to-[#ede8d5] h-32">
-        <img src="/header.png" alt="" aria-hidden="true"
-             class="absolute top-0 left-0 w-full h-auto pointer-events-none opacity-70"/>
-        <img src="/character.png" alt="" aria-hidden="true"
-             class="absolute top-0 left-0 w-full h-auto pointer-events-none opacity-60"/>
+    <!-- -- En-tête décoratif -- -->
+    <div
+        class="relative overflow-hidden bg-linear-to-b from-[#e8705a] via-[#c0407e] to-[#ede8d5] h-32"
+    >
+        <img
+            src="/cloud.svg"
+            alt=""
+            aria-hidden="true"
+            class="absolute top-0 left-0 w-full h-auto pointer-events-none opacity-70"
+        />
+        <img
+            src="/drone.svg"
+            alt=""
+            aria-hidden="true"
+            class="absolute top-0 left-0 w-full h-auto pointer-events-none opacity-60"
+        />
     </div>
 
     <div class="bg-[#ede8d5] px-6 py-10 max-w-2xl mx-auto text-center">
-
         <!-- NOT / FOUND -->
         <p class="text-xl font-black uppercase tracking-widest mb-4">
             <span class="text-[#3d1080]">Not </span>
@@ -26,19 +35,25 @@ import Footer from "../components/Footer.astro";
         </p>
 
         <!-- 404 -->
-        <p class="text-[140px] sm:text-[180px] font-black leading-none text-[#1a1a2e] select-none"
-           aria-label="Erreur 404">
+        <p
+            class="text-[140px] sm:text-[180px] font-black leading-none text-[#1a1a2e] select-none"
+            aria-label="Erreur 404"
+        >
             404
         </p>
 
         <!-- Message -->
         <div class="mt-6 mb-8 text-left space-y-3">
-            <p class="font-black uppercase tracking-wide text-sm text-[#e8705a]">
+            <p
+                class="font-black uppercase tracking-wide text-sm text-[#e8705a]"
+            >
                 Oops !
             </p>
-            <p class="font-black uppercase text-sm leading-relaxed text-[#1a1a2e]">
-                Cette scÃ¨ne est encore en montage. Les drones ne sont pas encore
-                synchronisÃ©s et les lumiÃ¨res cherchent leur chemin !
+            <p
+                class="font-black uppercase text-sm leading-relaxed text-[#1a1a2e]"
+            >
+                Cette scène est encore en montage. Les drones ne sont pas encore
+                synchronisés et les lumières cherchent leur chemin !
             </p>
             <p class="font-black uppercase text-sm text-[#1a1a2e]">
                 Laisse-nous te ramener vers la piste principale.
@@ -46,22 +61,33 @@ import Footer from "../components/Footer.astro";
         </div>
 
         <!-- CTA -->
-        <a href="/"
-           class="inline-block px-6 py-3 rounded-full border-2 border-[#3d1080] font-black
+        <a
+            href="/"
+            class="inline-block px-6 py-3 rounded-full border-2 border-[#3d1080] font-black
                   uppercase tracking-widest text-xs text-[#3d1080]
-                  hover:bg-[#3d1080] hover:text-white active:scale-95 transition-all duration-200">
-            Retour Ã  l'accueil
+                  hover:bg-[#3d1080] hover:text-white active:scale-95 transition-all duration-200"
+        >
+            Retour à l'accueil
         </a>
-
     </div>
 
-    <!-- Bande dÃ©corative avant footer â€” mÃªme style hero -->
-    <div class="relative h-48 overflow-hidden mt-10"
-         style="background:linear-gradient(to bottom,#ede8d5,#3d1080)">
-        <img src="/header.png" alt="" aria-hidden="true"
-             class="absolute bottom-0 left-0 w-full h-auto pointer-events-none opacity-50"/>
-        <img src="/character.png" alt="" aria-hidden="true"
-             class="absolute bottom-0 left-0 w-full h-auto pointer-events-none opacity-60"/>
+    <!-- Bande décorative avant footer — même style hero -->
+    <div
+        class="relative h-48 overflow-hidden mt-10"
+        style="background:linear-gradient(to bottom,#ede8d5,#3d1080)"
+    >
+        <img
+            src="/cloud.svg"
+            alt=""
+            aria-hidden="true"
+            class="absolute bottom-0 left-0 w-full h-auto pointer-events-none opacity-50"
+        />
+        <img
+            src="/drone.svg"
+            alt=""
+            aria-hidden="true"
+            class="absolute bottom-0 left-0 w-full h-auto pointer-events-none opacity-60"
+        />
     </div>
 
     <Footer />

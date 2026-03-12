@@ -1,7 +1,7 @@
-ï»¿---
+---
 /**
  * src/pages/scenes.astro
- * Page ScÃ¨nes du festival Lumimix
+ * Page Scènes du festival Lumimix
  *
  * PocketBase collection "scenes" :
  *   nom (string), soustitre (string), localisation (string),
@@ -40,31 +40,31 @@ if (scenes.length === 0) {
         {
             id: "1",
             collectionId: "",
-            nom: "ScÃ¨ne principale",
+            nom: "Scène principale",
             soustitre: "L'Horizon Lumineux",
             localisation: "Face au lac de Malsaucy",
             capacite: "15 000 personnes",
             description: [
-                "La scÃ¨ne principale du festival offre une vue imprenable sur le lac.",
-                "C'est ici que se dÃ©roulent les performances les plus spectaculaires avec un Ã©cran gÃ©ant projetÃ© sur l'eau, des chorÃ©graphies de drones lumineux synchronisÃ©es avec la musique et un systÃ¨me de lasers monumentaux.",
-                "L'acoustique exceptionnelle et le sound system L-Acoustics garantissent une meilleure qualitÃ© sonore optimale.",
-                "Cette scÃ¨ne accueille les plus grandes tÃªtes d'affiche et propose les sets Ã©lectro les plus puissants du festival.",
+                "La scène principale du festival offre une vue imprenable sur le lac.",
+                "C'est ici que se déroulent les performances les plus spectaculaires avec un écran géant projeté sur l'eau, des chorégraphies de drones lumineux synchronisées avec la musique et un système de lasers monumentaux.",
+                "L'acoustique exceptionnelle et le sound system L-Acoustics garantissent une meilleure qualité sonore optimale.",
+                "Cette scène accueille les plus grandes têtes d'affiche et propose les sets électro les plus puissants du festival.",
             ].join("\n"),
             image: "",
         },
         {
             id: "2",
             collectionId: "",
-            nom: "ScÃ¨ne secondaire",
-            soustitre: "La ClairiÃ¨re Sonore",
-            localisation: "Dans les bois, au cÅ“ur de la presqu'Ã®le",
+            nom: "Scène secondaire",
+            soustitre: "La Clairière Sonore",
+            localisation: "Dans les bois, au cœur de la presqu'île",
             capacite: "5 000 personnes",
             description: [
-                "NichÃ©e dans un Ã©crin de verdure, La ClairiÃ¨re Sonore offre une atmosphÃ¨re intimiste et immersive.",
-                "Des installations lumineuses interactives sont dispersÃ©es entre les arbres, crÃ©ant une ambiance fÃ©erique.",
-                "Cette scÃ¨ne est dÃ©diÃ©e aux sonoritÃ©s plus douces : reggae, dub, downtempo et mÃ©lodies contemplatives.",
-                "Le cadre naturel et les effets visuels organiques crÃ©ent une expÃ©rience unique oÃ¹ la nature rencontre la technologie.",
-                "Un espace parfait pour se poser, profiter de la musique et dÃ©couvrir des univers artistiques variÃ©s.",
+                "Nichée dans un écrin de verdure, La Clairière Sonore offre une atmosphère intimiste et immersive.",
+                "Des installations lumineuses interactives sont dispersées entre les arbres, créant une ambiance féerique.",
+                "Cette scène est dédiée aux sonorités plus douces : reggae, dub, downtempo et mélodies contemplatives.",
+                "Le cadre naturel et les effets visuels organiques créent une expérience unique où la nature rencontre la technologie.",
+                "Un espace parfait pour se poser, profiter de la musique et découvrir des univers artistiques variés.",
             ].join("\n"),
             image: "",
         },
@@ -78,52 +78,52 @@ function imageUrl(scene: Scene) {
 ---
 
 <Layout>
-    <!-- â”€â”€ En-tÃªte dÃ©coratif â”€â”€ -->
+    <!-- -- En-tête décoratif -- -->
     <div class="relative overflow-hidden bg-linear-to-b from-[#e8705a] via-[#c0407e] to-[#ede8d5] h-32">
-        <img src="/header.png" alt="" aria-hidden="true"
+        <img src="/cloud.svg" alt="" aria-hidden="true"
              class="absolute top-0 left-0 w-full h-auto pointer-events-none opacity-70"/>
-        <img src="/character.png" alt="" aria-hidden="true"
+        <img src="/drone.svg" alt="" aria-hidden="true"
              class="absolute top-0 left-0 w-full h-auto pointer-events-none opacity-50"/>
     </div>
 
     <div class="bg-[#ede8d5] px-6 py-10 max-w-2xl mx-auto">
 
-        <!-- â•â• TITRE â•â• -->
+        <!-- -- TITRE -- -->
         <h1 class="text-3xl font-black uppercase tracking-tight text-[#e8705a] mb-10">
-            Les scÃ¨nes de Lumimix
+            Les scènes de Lumimix
         </h1>
 
-        <!-- â•â• LISTE DES SCÃˆNES â•â• -->
+        <!-- -- LISTE DES SCÈNES -- -->
         <div class="space-y-16">
             {scenes.map((scene) => {
                 const paragraphes = scene.description.split("\n").filter(Boolean);
                 const url = imageUrl(scene);
                 return (
                     <section>
-                        <!-- Titre scÃ¨ne -->
+                        <!-- Titre scène -->
                         <h2 class="text-base font-black uppercase tracking-wide text-[#1a1a2e] mb-4">
-                            {scene.nom} â€“{" "}
+                            {scene.nom} –{" "}
                             <span class="text-[#e8705a]">{scene.soustitre}</span>
                         </h2>
 
                         <!-- Photo -->
                         <div class="w-full rounded-2xl overflow-hidden bg-[#c8b8e8] mb-5 aspect-video">
                             {url ? (
-                                <img src={url} alt={`ScÃ¨ne ${scene.nom}`}
+                                <img src={url} alt={`Scène ${scene.nom}`}
                                      class="w-full h-full object-cover"/>
                             ) : (
-                                <img src="/festival-scene.jpg" alt={`ScÃ¨ne ${scene.nom}`}
+                                <img src="/festival-scene.jpg" alt={`Scène ${scene.nom}`}
                                      class="w-full h-full object-cover"
                                      onerror="this.parentElement.style.background='#c8b8e8'"/>
                             )}
                         </div>
 
-                        <!-- Localisation + CapacitÃ© -->
+                        <!-- Localisation + Capacité -->
                         <p class="text-xs font-black uppercase tracking-wide text-[#e8705a] mb-0.5">
                             Localisation : <span class="text-[#c0407e]">{scene.localisation}</span>
                         </p>
                         <p class="text-xs font-black uppercase tracking-wide text-[#e8705a] mb-4">
-                            CapacitÃ© : <span class="text-[#c0407e]">{scene.capacite}</span>
+                            Capacité : <span class="text-[#c0407e]">{scene.capacite}</span>
                         </p>
 
                         <!-- Description -->
@@ -135,7 +135,7 @@ function imageUrl(scene: Scene) {
             })}
         </div>
 
-        <!-- â•â• CTA â•â• -->
+        <!-- -- CTA -- -->
         <div class="flex flex-wrap gap-3 mt-14 mb-4">
             <a href="/programme"
                class="inline-block px-6 py-3 rounded-full text-white font-black uppercase
