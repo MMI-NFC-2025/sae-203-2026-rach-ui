@@ -1,0 +1,283 @@
+---
+/**
+ * src/pages/historique.astro
+ * Page Historique du festival Lumimix
+ *
+ * PocketBase collections utilisées :
+ *   - "equipe"   : nom, role, departement (string: "Direction"|"Son"|"Lumière"|"Logistique"|"Communication")
+ */
+
+import Layout from "../layouts/Layout.astro";
+import Footer from "../components/Footer.astro";
+
+interface Membre {
+    nom: string;
+    role: string;
+    departement: string;
+}
+
+let equipe: Membre[] = [];
+
+try {
+    const res = await fetch(
+        "http://127.0.0.1:8090/api/collections/equipe/records?sort=departement,nom&perPage=50",
+        { signal: AbortSignal.timeout(3000) },
+    );
+    if (res.ok) {
+        const data = await res.json();
+        equipe = data.items ?? [];
+    }
+} catch {
+    /* fallback statique ci-dessous */
+}
+
+if (equipe.length === 0) {
+    equipe = [
+        {
+            departement: "Direction",
+            nom: "Thomas Mercier",
+            role: "Directeur du festival",
+        },
+        {
+            departement: "Direction",
+            nom: "Sarah Fontaine",
+            role: "Coordination générale",
+        },
+        {
+            departement: "Direction",
+            nom: "Lucas Bernardi",
+            role: "Direction artistique",
+        },
+        { departement: "Son", nom: "Antoine Roussel", role: "" },
+        { departement: "Son", nom: "Mathilde Perrin", role: "" },
+        { departement: "Son", nom: "Kevin Dubois Lumière", role: "" },
+        { departement: "Son", nom: "Camille Laurent", role: "" },
+        { departement: "Son", nom: "Maxime Girard", role: "" },
+        { departement: "Son", nom: "Julie Martinez", role: "" },
+        { departement: "Logistique", nom: "Marc Lefebvre", role: "" },
+        { departement: "Logistique", nom: "Sophie Moreau Sécurité", role: "" },
+        { departement: "Logistique", nom: "David Renault", role: "" },
+        { departement: "Communication", nom: "Emma Durand", role: "" },
+        { departement: "Communication", nom: "Léa Petit", role: "" },
+    ];
+}
+
+// Regrouper par département
+const depts = equipe.reduce<Record<string, Membre[]>>((acc, m) => {
+    (acc[m.departement] ??= []).push(m);
+    return acc;
+}, {});
+---
+
+<Layout>
+    <!-- ── En-tête décoratif avec calques ── -->
+    <div
+        class="relative overflow-hidden bg-linear-to-b from-[#e8705a] via-[#c0407e] to-[#ede8d5] h-32"
+    >
+        <img
+            src="/cloud.svg"
+            alt=""
+            aria-hidden="true"
+            class="absolute top-0 left-0 w-full h-auto pointer-events-none opacity-70"
+        />
+    </div>
+
+    <div class="bg-[#ede8d5] px-6 py-10 max-w-2xl mx-auto space-y-14">
+        <!-- ══ HISTORIQUE ══ -->
+        <section>
+            <h1
+                class="text-3xl font-black uppercase tracking-tight text-[#3d1080] mb-2"
+            >
+                Historique
+            </h1>
+            <div class="w-16 h-1 bg-[#c0407e] rounded-full mb-8"></div>
+
+            <!-- EXPÉRIENCE UNIQUE -->
+            <h2
+                class="text-lg font-black uppercase tracking-wide text-[#1a1a2e] mb-4"
+            >
+                Lumimix, une expérience unique
+            </h2>
+            <div class="space-y-4 text-[#444] text-sm leading-relaxed">
+                <p>
+                    Vibrer au rythme de la musique, ressentir l'énergie des
+                    basses et s'émerveiller devant des jeux de lumière
+                    hypnotisants. C'est Lumimix.
+                </p>
+                <p>
+                    Pendant 3 nuits, la presqu'île de Malsaucy se transforme en
+                    un monde lumineux et sonore.
+                </p>
+                <p>
+                    Chaque set DJ raconte une histoire grâce aux chorégraphies
+                    de drones lumineux et aux projections sur l'eau du lac.
+                </p>
+            </div>
+        </section>
+
+        <!-- ══ LIEU D'EXCEPTION ══ -->
+        <section>
+            <h2
+                class="text-lg font-black uppercase tracking-wide text-[#1a1a2e] mb-4"
+            >
+                Un lieu d'exception
+            </h2>
+            <p class="text-[#444] text-sm leading-relaxed mb-2">
+                La presqu'île de Malsaucy, près de Belfort, accueille déjà les
+                Eurockéennes et le festival Réveaulac.
+            </p>
+            <p class="text-[#444] text-sm leading-relaxed">
+                Un cadre naturel exceptionnel pour vivre Lumimix.
+            </p>
+        </section>
+
+        <!-- Séparateur décoratif nuages -->
+        <div class="relative h-20 overflow-hidden -mx-6">
+            <img
+                src="/cloud.svg"
+                alt=""
+                aria-hidden="true"
+                class="absolute top-0 left-0 w-full h-auto pointer-events-none opacity-40"
+            />
+        </div>
+
+        <!-- ══ ÉQUIPE ══ -->
+        <section>
+            <h2
+                class="text-lg font-black uppercase tracking-[0.2em] text-[#1a1a2e] mb-6"
+            >
+                Équipe
+            </h2>
+
+            <!-- Photo équipe placeholder -->
+            <div
+                class="w-full aspect-3/2 rounded-2xl overflow-hidden bg-[#c8b8e8] mb-6 relative"
+            >
+                <img
+                    src="/equipe.jpg"
+                    alt="L'équipe Lumimix Festival"
+                    class="w-full h-full object-cover"
+                    onerror="this.parentElement.querySelector('span').style.display='flex'"
+                />
+                <span
+                    class="hidden absolute inset-0 items-center justify-center
+                             text-white/60 font-bold uppercase tracking-widest text-sm"
+                >
+                    Photo équipe
+                </span>
+            </div>
+
+            <!-- Liste membres par département -->
+            <div class="space-y-4 bg-white/70 backdrop-blur-sm rounded-2xl p-5">
+                {
+                    Object.entries(depts).map(([dept, membres]) => (
+                        <div>
+                            <p class="text-xs font-black uppercase tracking-widest text-[#3d1080] mb-1">
+                                {dept}
+                            </p>
+                            <p class="text-sm text-[#333] leading-relaxed">
+                                {membres.map((m, i) => (
+                                    <span>
+                                        {m.role ? (
+                                            <>
+                                                <strong>{m.nom}</strong> ·{" "}
+                                                {m.role}
+                                            </>
+                                        ) : (
+                                            m.nom
+                                        )}
+                                        {i < membres.length - 1 ? " · " : ""}
+                                    </span>
+                                ))}
+                            </p>
+                        </div>
+                    ))
+                }
+            </div>
+        </section>
+
+        <!-- ══ NOS VALEURS ══ -->
+        <section>
+            <h2
+                class="text-lg font-black uppercase tracking-[0.2em] text-[#1a1a2e] mb-6"
+            >
+                Nos valeurs
+            </h2>
+            <div class="space-y-6">
+                {
+                    [
+                        {
+                            titre: "Inclusion",
+                            texte: "Un festival ouvert à tous, où chacun se sent accueilli dans une ambiance bienveillante et festive.",
+                            color: "#e87b5a",
+                        },
+                        {
+                            titre: "Créativité",
+                            texte: "L'imagination prend vie à travers des performances artistiques inédites et un festival en perpétuel renouvellement.",
+                            color: "#c0407e",
+                        },
+                        {
+                            titre: "Divertissement",
+                            texte: "Trois nuits pensées pour offrir plaisir, détente et moments inoubliables dans un cadre convivial.",
+                            color: "#3d1080",
+                        },
+                    ].map(({ titre, texte, color }) => (
+                        <div class="flex gap-4 items-start">
+                            <div
+                                class="shrink-0 w-2 rounded-full mt-1"
+                                style={`background:${color}; height:100%`}
+                                aria-hidden="true"
+                            />
+                            <div>
+                                <p
+                                    class="font-black uppercase tracking-wide text-sm mb-1"
+                                    style={`color:${color}`}
+                                >
+                                    {titre}
+                                </p>
+                                <p class="text-sm text-[#444] leading-relaxed">
+                                    {texte}
+                                </p>
+                            </div>
+                        </div>
+                    ))
+                }
+            </div>
+        </section>
+
+        <!-- ══ ÉDITION 2026 ══ -->
+        <section>
+            <div class="rounded-2xl bg-[#1a1a2e] text-white p-6 space-y-4">
+                <p
+                    class="text-xs font-black uppercase tracking-widest text-[#e87b5a]"
+                >
+                    Édition 2026 : "Nuits Électriques"
+                </p>
+                {
+                    [
+                        {
+                            jour: "Vendredi",
+                            desc: "L'Éveil · L'énergie électro monte",
+                        },
+                        {
+                            jour: "Samedi",
+                            desc: "La Fusion · Mélange des styles et ambiances",
+                        },
+                        {
+                            jour: "Dimanche",
+                            desc: "L'Apogée · La clôture magistrale",
+                        },
+                    ].map(({ jour, desc }) => (
+                        <div class="border-t border-white/10 pt-4">
+                            <p class="font-black uppercase tracking-wider text-white text-sm leading-tight">
+                                {jour} : {desc}
+                            </p>
+                        </div>
+                    ))
+                }
+            </div>
+        </section>
+    </div>
+
+    <Footer />
+</Layout>
