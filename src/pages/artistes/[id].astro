@@ -102,7 +102,9 @@ const fallbacks: Record<string, Artiste> = {
 let artiste: Artiste | null = null;
 
 try {
-    artiste = await pb.collection("artistes").getOne(id!) as unknown as Artiste;
+    artiste = (await pb
+        .collection("artistes")
+        .getOne(id!)) as unknown as Artiste;
 } catch {
     /* fallback */
 }
