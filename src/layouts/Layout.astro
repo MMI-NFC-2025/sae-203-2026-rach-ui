@@ -1,6 +1,14 @@
 ---
 import "../styles/global.css";
 import NavMenu from "../components/NavMenu.astro";
+
+interface Props {
+	/** When true, the header is absolutely positioned so it overlays
+	 *  a full-screen hero section underneath. */
+	transparentHeader?: boolean;
+}
+
+const { transparentHeader = false } = Astro.props;
 ---
 
 <!doctype html>
@@ -15,7 +23,14 @@ import NavMenu from "../components/NavMenu.astro";
 	</head>
 	<body class="bg-[#ede8d5] min-h-screen">
 		<!-- ── Site-wide top bar ── -->
-		<header class="relative flex items-center justify-between px-4 py-4">
+		<header
+			class:list={[
+				"flex items-center justify-between px-4 py-4 z-20",
+				transparentHeader
+					? "absolute top-0 left-0 right-0"
+					: "relative",
+			]}
+		>
 			<!-- Site logo / wordmark -->
 			<a
 				href="/"

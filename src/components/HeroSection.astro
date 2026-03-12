@@ -1,0 +1,232 @@
+---
+/**
+ * HeroSection.astro — Full-screen festival hero section
+ *
+ * Expects the following assets in /public/:
+ *   /dj-character.png   — cartoon DJ mascot
+ *   /drone.png          — cartoon quadcopter drone (reused at multiple positions)
+ *   /cloud.png          — illustrated cloud (reused at multiple positions)
+ *   /logo.png           — festival logo (used by the overlaid Layout header)
+ *
+ * This component is designed to work with Layout.astro's
+ * `transparentHeader={true}` prop so the header overlays the gradient.
+ */
+---
+
+<section
+    class="relative min-h-svh w-full overflow-hidden
+         grid grid-rows-[1fr_auto]
+         bg-linear-to-b from-[#e07060] via-[#c04888] to-[#4e1a96]"
+    aria-label="Bienvenue au Lumimix Festival"
+>
+    <!-- ═══════════════════════════════════════
+       Decorative clouds — absolutely positioned
+       ═══════════════════════════════════════ -->
+
+    <!-- Top-left cloud (large, partially off-screen) -->
+    <img
+        src="/cloud.png"
+        alt=""
+        aria-hidden="true"
+        width="380"
+        height="200"
+        class="absolute -top-4 -left-8
+           w-[55vw] max-w-xs
+           pointer-events-none select-none opacity-90
+           sm:w-[40vw]"
+    />
+
+    <!-- Top-right cloud (medium) -->
+    <img
+        src="/cloud.png"
+        alt=""
+        aria-hidden="true"
+        width="260"
+        height="140"
+        class="absolute top-2 right-0
+           w-[38vw] max-w-45 scale-x-[-1]
+           pointer-events-none select-none opacity-80
+           sm:w-[28vw]"
+    />
+
+    <!-- Bottom-left large cloud -->
+    <img
+        src="/cloud.png"
+        alt=""
+        aria-hidden="true"
+        width="440"
+        height="220"
+        class="absolute -bottom-2 -left-6
+           w-[65vw] max-w-sm
+           pointer-events-none select-none opacity-95
+           sm:w-[50vw]"
+    />
+
+    <!-- Bottom-right cloud -->
+    <img
+        src="/cloud.png"
+        alt=""
+        aria-hidden="true"
+        width="360"
+        height="180"
+        class="absolute -bottom-2 right-0
+           w-[55vw] max-w-65 scale-x-[-1]
+           pointer-events-none select-none opacity-95
+           sm:w-[40vw]"
+    />
+
+    <!-- Bottom-center cloud (wide, partially behind bottom-left/-right) -->
+    <img
+        src="/cloud.png"
+        alt=""
+        aria-hidden="true"
+        width="420"
+        height="160"
+        class="absolute bottom-0 left-1/2 -translate-x-1/2
+           w-[80vw] max-w-md opacity-60
+           pointer-events-none select-none"
+    />
+
+    <!-- ═══════════════════════════════════════
+       Decorative drones — absolutely positioned
+       ═══════════════════════════════════════ -->
+
+    <!-- Drone 1 — top right -->
+    <img
+        src="/drone.png"
+        alt=""
+        aria-hidden="true"
+        width="56"
+        height="56"
+        class="absolute top-[11%] right-[17%]
+           w-14 h-14 sm:w-16 sm:h-16
+           -rotate-6
+           pointer-events-none select-none"
+    />
+
+    <!-- Drone 2 — left mid -->
+    <img
+        src="/drone.png"
+        alt=""
+        aria-hidden="true"
+        width="48"
+        height="48"
+        class="absolute top-[40%] left-[3%]
+           w-12 h-12 sm:w-14 sm:h-14
+           rotate-3
+           pointer-events-none select-none"
+    />
+
+    <!-- Drone 3 — right mid-upper -->
+    <img
+        src="/drone.png"
+        alt=""
+        aria-hidden="true"
+        width="48"
+        height="48"
+        class="absolute top-[44%] right-[5%]
+           w-12 h-12 sm:w-14 sm:h-14
+           -rotate-3
+           pointer-events-none select-none"
+    />
+
+    <!-- Drone 4 — right mid-lower -->
+    <img
+        src="/drone.png"
+        alt=""
+        aria-hidden="true"
+        width="40"
+        height="40"
+        class="absolute top-[62%] right-[2%]
+           w-10 h-10 sm:w-12 sm:h-12
+           rotate-6
+           pointer-events-none select-none"
+    />
+
+    <!-- Drone 5 — left lower -->
+    <img
+        src="/drone.png"
+        alt=""
+        aria-hidden="true"
+        width="48"
+        height="48"
+        class="absolute top-[72%] left-[4%]
+           w-12 h-12 sm:w-14 sm:h-14
+           -rotate-6
+           pointer-events-none select-none"
+    />
+
+    <!-- Drone 6 — center-right lower -->
+    <img
+        src="/drone.png"
+        alt=""
+        aria-hidden="true"
+        width="56"
+        height="56"
+        class="absolute top-[75%] right-[20%]
+           w-14 h-14 sm:w-16 sm:h-16
+           rotate-3
+           pointer-events-none select-none"
+    />
+
+    <!-- Drone 7 — bottom-left -->
+    <img
+        src="/drone.png"
+        alt=""
+        aria-hidden="true"
+        width="48"
+        height="48"
+        class="absolute bottom-[13%] left-[14%]
+           w-12 h-12 sm:w-14 sm:h-14
+           rotate-12
+           pointer-events-none select-none"
+    />
+
+    <!-- ═══════════════════════════════════════
+       Main content: DJ mascot + tagline
+       ═══════════════════════════════════════ -->
+    <div
+        class="relative z-10
+           flex flex-col items-center justify-center gap-10
+           min-h-svh
+           pt-24 pb-24
+           px-6
+           sm:pt-28 sm:pb-28
+           lg:pt-32 lg:pb-32"
+    >
+        <!-- DJ character inside circular purple glow -->
+        <div class="flex-1 flex items-center justify-center">
+            <div
+                class="relative
+               w-52 h-52
+               sm:w-64 sm:h-64
+               md:w-72 md:h-72
+               rounded-full
+               bg-[#7c52d0]/50
+               shadow-[0_0_60px_20px_rgba(124,82,208,0.35)]
+               flex items-end justify-center
+               overflow-hidden"
+            >
+                <img
+                    src="/dj-character.png"
+                    alt="Personnage DJ du Lumimix Festival — un personnage cartoon portant des écouteurs et mixant sur des platines"
+                    width="290"
+                    height="290"
+                    class="w-full h-full object-contain object-bottom"
+                />
+            </div>
+        </div>
+
+        <!-- Festival tagline -->
+        <p
+            class="text-center text-white font-black uppercase leading-snug
+             text-[clamp(1.35rem,5.5vw,2.25rem)]
+             tracking-wide
+             drop-shadow-[0_2px_4px_rgba(0,0,0,0.4)]"
+        >
+            OSE LA LUMIÈRE,<br />
+            OSE LE SONVIENS<br />
+            VIVRE LA NUIT À LUMIMIX
+        </p>
+    </div>
+</section>
