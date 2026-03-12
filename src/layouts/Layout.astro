@@ -6,9 +6,12 @@ interface Props {
 	/** When true, the header is absolutely positioned so it overlays
 	 *  a full-screen hero section underneath. */
 	transparentHeader?: boolean;
+	/** When true, the logo and hamburger lines use white instead of black
+	 *  (for use over dark or gradient backgrounds). */
+	headerInvert?: boolean;
 }
 
-const { transparentHeader = false } = Astro.props;
+const { transparentHeader = false, headerInvert = false } = Astro.props;
 ---
 
 <!doctype html>
@@ -46,26 +49,22 @@ const { transparentHeader = false } = Astro.props;
 				/>
 			</a>
 
-			<!-- Hamburger trigger (visible on all sizes; hide on lg if you add a desktop nav) -->
+			<!-- Hamburger trigger — 2-line style matching the mockup -->
 			<button
 				type="button"
 				aria-label="Ouvrir le menu de navigation"
 				aria-expanded="false"
 				aria-controls="nav-menu"
 				onclick="window.openNavMenu?.()"
-				class="flex flex-col justify-center items-center gap-1.5 w-10 h-10
-					text-black
-					hover:opacity-60 active:scale-90
-					transition-all duration-150
-					focus:outline-none focus-visible:ring-2 focus-visible:ring-black rounded
-					lg:hidden"
+				class:list={[
+					"flex flex-col justify-center items-center gap-2.5 w-10 h-10 hover:opacity-60 active:scale-90 transition-all duration-150 focus:outline-none focus-visible:ring-2 rounded lg:hidden",
+					headerInvert
+						? "text-white focus-visible:ring-white"
+						: "text-black focus-visible:ring-black",
+				]}
 			>
-				<span class="block w-7 h-[2.5px] bg-current rounded-full"
-				></span>
-				<span class="block w-7 h-[2.5px] bg-current rounded-full"
-				></span>
-				<span class="block w-7 h-[2.5px] bg-current rounded-full"
-				></span>
+				<span class="block w-8 h-0.75 bg-current rounded-sm"></span>
+				<span class="block w-8 h-0.75 bg-current rounded-sm"></span>
 			</button>
 		</header>
 

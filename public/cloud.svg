@@ -1,0 +1,85 @@
+﻿<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1440 900" width="1440" height="900">
+  <defs>
+    <filter id="cf-xl" x="-30%" y="-30%" width="160%" height="160%">
+      <feGaussianBlur stdDeviation="22"/>
+    </filter>
+    <filter id="cf-m" x="-22%" y="-22%" width="144%" height="144%">
+      <feGaussianBlur stdDeviation="13"/>
+    </filter>
+    <filter id="cf-l" x="-12%" y="-12%" width="124%" height="124%">
+      <feGaussianBlur stdDeviation="6"/>
+    </filter>
+    <radialGradient id="warm-glow" cx="50%" cy="40%" r="48%">
+      <stop offset="0%"   stop-color="#ffd580" stop-opacity="0.18"/>
+      <stop offset="100%" stop-color="#ffd580" stop-opacity="0"/>
+    </radialGradient>
+    <radialGradient id="lavender-tint" cx="50%" cy="80%" r="55%">
+      <stop offset="0%"   stop-color="#d4b8ff" stop-opacity="0.22"/>
+      <stop offset="100%" stop-color="#d4b8ff" stop-opacity="0"/>
+    </radialGradient>
+  </defs>
+  <rect x="0" y="0" width="1440" height="900" fill="url(#warm-glow)"/>
+  <rect x="0" y="0" width="1440" height="900" fill="url(#lavender-tint)"/>
+  <g filter="url(#cf-xl)" opacity="0.28">
+    <rect x="-80" y="590" width="1600" height="200" rx="80" fill="white"/>
+  </g>
+  <g filter="url(#cf-xl)" opacity="0.86">
+    <ellipse cx="720"  cy="928" rx="510" ry="108" fill="white" opacity="0.52"/>
+    <ellipse cx="648"  cy="884" rx="218" ry="96"  fill="white" opacity="0.70"/>
+    <ellipse cx="808"  cy="878" rx="235" ry="90"  fill="white" opacity="0.68"/>
+    <ellipse cx="565"  cy="862" rx="158" ry="72"  fill="white" opacity="0.63"/>
+    <ellipse cx="892"  cy="858" rx="162" ry="68"  fill="white" opacity="0.61"/>
+    <ellipse cx="688"  cy="844" rx="128" ry="76"  fill="white" opacity="0.76"/>
+    <ellipse cx="766"  cy="838" rx="124" ry="70"  fill="white" opacity="0.74"/>
+    <ellipse cx="720"  cy="820" rx="88"  ry="58"  fill="white" opacity="0.70"/>
+    <ellipse cx="720"  cy="820" rx="88"  ry="58"  fill="#c8aaff" opacity="0.18"/>
+  </g>
+  <g filter="url(#cf-xl)" opacity="0.80">
+    <ellipse cx="55"   cy="920" rx="255" ry="92"  fill="white" opacity="0.52"/>
+    <ellipse cx="42"   cy="878" rx="140" ry="76"  fill="white" opacity="0.62"/>
+    <ellipse cx="158"  cy="873" rx="155" ry="70"  fill="white" opacity="0.60"/>
+    <ellipse cx="-18"  cy="862" rx="92"  ry="54"  fill="white" opacity="0.53"/>
+    <ellipse cx="226"  cy="856" rx="108" ry="54"  fill="white" opacity="0.53"/>
+    <ellipse cx="98"   cy="846" rx="94"  ry="52"  fill="white" opacity="0.58"/>
+    <ellipse cx="120"  cy="830" rx="68"  ry="44"  fill="white" opacity="0.55"/>
+  </g>
+  <g filter="url(#cf-xl)" opacity="0.80">
+    <ellipse cx="1392" cy="920" rx="255" ry="90"  fill="white" opacity="0.52"/>
+    <ellipse cx="1406" cy="876" rx="140" ry="74"  fill="white" opacity="0.62"/>
+    <ellipse cx="1290" cy="870" rx="155" ry="68"  fill="white" opacity="0.60"/>
+    <ellipse cx="1462" cy="860" rx="92"  ry="52"  fill="white" opacity="0.53"/>
+    <ellipse cx="1228" cy="854" rx="110" ry="53"  fill="white" opacity="0.53"/>
+    <ellipse cx="1336" cy="842" rx="96"  ry="50"  fill="white" opacity="0.58"/>
+    <ellipse cx="1310" cy="827" rx="70"  ry="44"  fill="white" opacity="0.55"/>
+  </g>
+  <g filter="url(#cf-m)" opacity="0.52">
+    <ellipse cx="200"  cy="500" rx="126" ry="44"  fill="white" opacity="0.42"/>
+    <ellipse cx="174"  cy="478" rx="78"  ry="37"  fill="white" opacity="0.47"/>
+    <ellipse cx="240"  cy="476" rx="87"  ry="35"  fill="white" opacity="0.43"/>
+    <ellipse cx="138"  cy="470" rx="56"  ry="28"  fill="white" opacity="0.37"/>
+    <ellipse cx="192"  cy="462" rx="65"  ry="30"  fill="white" opacity="0.40"/>
+  </g>
+  <g filter="url(#cf-m)" opacity="0.50">
+    <ellipse cx="1252" cy="470" rx="136" ry="46"  fill="white" opacity="0.40"/>
+    <ellipse cx="1225" cy="448" rx="82"  ry="37"  fill="white" opacity="0.45"/>
+    <ellipse cx="1296" cy="446" rx="90"  ry="35"  fill="white" opacity="0.42"/>
+    <ellipse cx="1192" cy="438" rx="59"  ry="28"  fill="white" opacity="0.36"/>
+    <ellipse cx="1238" cy="432" rx="68"  ry="30"  fill="white" opacity="0.38"/>
+  </g>
+  <g filter="url(#cf-m)" opacity="0.38">
+    <ellipse cx="165"  cy="190" rx="88"  ry="30"  fill="white" opacity="0.32"/>
+    <ellipse cx="145"  cy="172" rx="55"  ry="26"  fill="white" opacity="0.36"/>
+    <ellipse cx="200"  cy="170" rx="62"  ry="24"  fill="white" opacity="0.33"/>
+  </g>
+  <g filter="url(#cf-m)" opacity="0.36">
+    <ellipse cx="1300" cy="175" rx="94"  ry="32"  fill="white" opacity="0.30"/>
+    <ellipse cx="1272" cy="156" rx="58"  ry="26"  fill="white" opacity="0.34"/>
+    <ellipse cx="1340" cy="154" rx="65"  ry="24"  fill="white" opacity="0.31"/>
+  </g>
+  <g filter="url(#cf-l)" opacity="0.20">
+    <path d="M80,300 Q280,276 480,295 Q660,312 842,284 Q1002,260 1185,278 Q1340,293 1440,280" fill="none" stroke="white" stroke-width="26" stroke-linecap="round"/>
+    <path d="M0,378 Q250,355 480,373 Q702,392 935,360 Q1134,336 1365,354 Q1418,358 1440,354" fill="none" stroke="white" stroke-width="17" stroke-linecap="round"/>
+    <path d="M165,238 Q384,220 566,236 Q724,250 906,226 Q1060,208 1245,222 Q1360,230 1440,218" fill="none" stroke="white" stroke-width="13" stroke-linecap="round"/>
+    <path d="M320,160 Q520,144 700,158 Q860,170 1040,148 Q1180,132 1320,144" fill="none" stroke="white" stroke-width="9" stroke-linecap="round"/>
+  </g>
+</svg>
