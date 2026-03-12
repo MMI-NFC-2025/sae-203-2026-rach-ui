@@ -1,4 +1,4 @@
----
+ï»¿---
 /**
  * src/pages/programme.astro
  * Page Programme complet du festival Lumimix
@@ -19,43 +19,42 @@ interface JourProg {
 
 let jours: JourProg[] = [];
 
+// RÃ©cupÃ¨re les artistes depuis PocketBase et groupe par jour
+let artistesRaw: any[] = [];
 try {
     const res = await fetch(
-        "http://127.0.0.1:8090/api/collections/programme/records?sort=ordre&perPage=10",
-        { signal: AbortSignal.timeout(3000) }
+        "http://127.0.0.1:8090/api/collections/artistes/records?sort=ordre&perPage=50",
+        { signal: AbortSignal.timeout(4000) }
     );
     if (res.ok) {
         const data = await res.json();
-        const items = data.items ?? [];
-        jours = items.map((it: any) => ({
-            ordre: it.ordre ?? 0,
-            jour: it.jour ?? "",
-            soustitre: it.soustitre ?? "",
-            artistes: Array.isArray(it.artistes) ? it.artistes : [],
-        }));
+        artistesRaw = data.items ?? [];
     }
 } catch { /* fallback */ }
 
+if (artistesRaw.length > 0) {
+    const map = new Map<string, { soustitre: string; artistes: string[]; ordre: number }>();
+    for (const a of artistesRaw) {
+        if (!a.jour) continue;
+        if (!map.has(a.jour)) map.set(a.jour, { soustitre: "", artistes: [], ordre: a.ordre ?? 99 });
+        map.get(a.jour)!.artistes.push(`${a.prenom ?? ""} ${a.nom ?? ""}`.trim());
+    }
+    jours = Array.from(map.entries())
+        .sort((a, b) => a[1].ordre - b[1].ordre)
+        .map(([jour, v]) => ({ ordre: v.ordre, jour, soustitre: v.soustitre, artistes: v.artistes }));
+}
+
 if (jours.length === 0) {
     jours = [
-        {
-            ordre: 1, jour: "Vendredi 7 Août", soustitre: "L'Éveil",
-            artistes: ["Klara Nova", "Setareh Ebrahimi", "Milo Tanaka", "Jade Ferreira", "Samuel Okonkwo"],
-        },
-        {
-            ordre: 2, jour: "Samedi 8 Août", soustitre: "La Fusion",
-            artistes: ["Léa Moreau", "Soren Brix", "Naomi Okafor", "DJ Pulse", "Valentina Cruz", "Elias Berg"],
-        },
-        {
-            ordre: 3, jour: "Dimanche 9 Août", soustitre: "L'Apogée",
-            artistes: ["Marco Vidal", "Ananya Singh", "Mia Johansson", "Théo Lambert", "Rosa Delgado"],
-        },
+        { ordre: 1, jour: "Vendredi 7 AoÃ»t",  soustitre: "SoirÃ©e d'ouverture", artistes: [] },
+        { ordre: 2, jour: "Samedi 8 AoÃ»t",    soustitre: "Nuit fusion",        artistes: [] },
+        { ordre: 3, jour: "Dimanche 9 AoÃ»t",  soustitre: "ClÃ´ture festive",    artistes: [] },
     ];
 }
 ---
 
 <Layout>
-    <!-- -- En-tête décoratif -- -->
+    <!-- -- En-tï¿½te dï¿½coratif -- -->
     <div class="relative overflow-hidden bg-linear-to-b from-[#e8705a] via-[#c0407e] to-[#ede8d5] h-32">
         <img src="/cloud.svg" alt="" aria-hidden="true"
              class="absolute top-0 left-0 w-full h-auto pointer-events-none opacity-70"/>
@@ -104,7 +103,7 @@ if (jours.length === 0) {
                                 </span>
                             </span>
                         </span>
-                        <!-- icône + / - -->
+                        <!-- icï¿½ne + / - -->
                         <span class="accordion-icon text-2xl font-thin leading-none select-none"
                               style={
                                   i === 0 ? "color:#e8705a" :
@@ -114,7 +113,7 @@ if (jours.length === 0) {
                               aria-hidden="true">+</span>
                     </button>
 
-                    <!-- Panneau dépliable -->
+                    <!-- Panneau dï¿½pliable -->
                     <div id={`panel-${i}`}
                          class="accordion-panel max-h-0 overflow-hidden transition-[max-height] duration-400 ease-in-out"
                          role="region">
@@ -145,9 +144,9 @@ if (jours.length === 0) {
             ))}
         </div>
 
-        <!-- -- TÉLÉCHARGEMENT PDF -- -->
+        <!-- -- Tï¿½Lï¿½CHARGEMENT PDF -- -->
         <div class="mt-16 mb-4 flex flex-col items-center gap-6">
-            <!-- drone SVG décoratif -->
+            <!-- drone SVG dï¿½coratif -->
             <div class="w-40 opacity-80" aria-hidden="true">
                 <img src="/drone.svg" alt="" class="w-full h-auto"/>
             </div>
@@ -155,7 +154,7 @@ if (jours.length === 0) {
                class="inline-flex items-center gap-3 px-8 py-3 rounded-full text-white font-black
                       uppercase tracking-widest text-sm shadow-lg active:scale-95 transition-transform"
                style="background:linear-gradient(135deg,#e8705a,#c0407e)">
-                <!-- icône download -->
+                <!-- icï¿½ne download -->
                 <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="currentColor"
                      class="w-5 h-5" aria-hidden="true">
                     <path fill-rule="evenodd"
@@ -167,7 +166,7 @@ if (jours.length === 0) {
         </div>
     </div>
 
-    <!-- -- BANDE DÉCORATIVE avant footer -- -->
+    <!-- -- BANDE Dï¿½CORATIVE avant footer -- -->
     <div class="relative h-40 overflow-hidden"
          style="background:linear-gradient(to bottom,#ede8d5,#3d1080)">
         <img src="/cloud.svg" alt="" aria-hidden="true"

@@ -11,38 +11,21 @@
  */
 
 let artistes: any[] = [];
-let error = false;
 
 try {
     const res = await fetch(
-        "http://127.0.0.1:8090/api/collections/artistes/records?perPage=20&filter=vedette=true",
+        "http://127.0.0.1:8090/api/collections/artistes/records?sort=ordre&perPage=50",
         { signal: AbortSignal.timeout(3000) },
     );
     if (res.ok) {
         const data = await res.json();
         artistes = data.items ?? [];
     }
-} catch {
-    // PocketBase non disponible — fallback statique
-    error = true;
-}
+} catch { /* PocketBase non disponible */ }
 
-// Données de fallback statiques si PocketBase absent
-const fallbackArtistes = [
-    "David Guetta",
-    "Martin Garrix",
-    "Kungs",
-    "Ofenbach",
-    "Charlotte de Witte",
-    "Petit Biscuit",
-    "Manudigital",
-    "Ben Böhmer",
-    "Thylacine",
-    "Worakls",
-];
-
-const artisteNames =
-    artistes.length > 0 ? artistes.map((a: any) => a.nom) : fallbackArtistes;
+const artisteNames = artistes.length > 0
+    ? artistes.map((a: any) => `${a.prenom ?? ""} ${a.nom ?? ""}`.trim())
+    : [];
 ---
 
 <section class="bg-[#ede8d5] px-6 py-10">

@@ -29,11 +29,14 @@ interface Artiste {
 let artistes: Artiste[] = [];
 
 try {
-    const data = await pb.collection("artistes").getList(1, 50, {
-        sort: "ordre",
-        requestKey: null,
-    });
-    artistes = data.items as unknown as Artiste[];
+    const res = await fetch(
+        "http://127.0.0.1:8090/api/collections/artistes/records?sort=ordre&perPage=50",
+        { signal: AbortSignal.timeout(4000) },
+    );
+    if (res.ok) {
+        const data = await res.json();
+        artistes = data.items ?? [];
+    }
 } catch { /* fallback */ }
 
 if (artistes.length === 0) {

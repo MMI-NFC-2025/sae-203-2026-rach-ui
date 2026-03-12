@@ -102,12 +102,14 @@ const fallbacks: Record<string, Artiste> = {
 let artiste: Artiste | null = null;
 
 try {
-    artiste = (await pb
-        .collection("artistes")
-        .getOne(id!)) as unknown as Artiste;
-} catch {
-    /* fallback */
-}
+    const res = await fetch(
+        `http://127.0.0.1:8090/api/collections/artistes/records/${id}`,
+        { signal: AbortSignal.timeout(4000) },
+    );
+    if (res.ok) {
+        artiste = await res.json();
+    }
+} catch { /* fallback */ }
 
 if (!artiste) {
     artiste = fallbacks[id ?? ""] ?? null;
