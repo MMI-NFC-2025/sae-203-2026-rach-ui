@@ -1,6 +1,6 @@
 ---
 /**
- * HeroSection.astro � Hero pleine page de la page d'accueil Lumimix Festival
+ * HeroSection.astro — Hero pleine page de la page d'accueil Lumimix Festival
  */
 ---
 
@@ -9,30 +9,55 @@
            bg-linear-to-b from-[#e8705a] via-[#c0407e] to-[#3d1080]"
     aria-label="Bienvenue au Lumimix Festival"
 >
-    <!-- -- Calque nuages (SVG atmosph�rique v1) -- -->
-    <img
-        src="/cloud.svg"
-        alt=""
-        aria-hidden="true"
-        class="absolute top-0 left-0 w-full h-auto
-               pointer-events-none select-none z-10"
-    />
+    <!-- ── Calque nuages ── -->
+    <!-- Nuages haut gauche -->
+    <img src="/cloud.png" alt="" aria-hidden="true"
+        class="absolute -top-4 -left-8 w-3/4 pointer-events-none select-none z-10 opacity-90" />
+    <!-- Nuages haut droite (retournés) -->
+    <img src="/cloud.png" alt="" aria-hidden="true"
+        class="absolute -top-4 -right-8 w-2/3 pointer-events-none select-none z-10 opacity-80 scale-x-[-1]" />
+    <!-- Nuage milieu gauche -->
+    <img src="/cloud.png" alt="" aria-hidden="true"
+        class="absolute top-[38%] -left-12 w-1/2 pointer-events-none select-none z-10 opacity-50" />
+    <!-- Nuages bas gauche -->
+    <img src="/cloud.png" alt="" aria-hidden="true"
+        class="absolute -bottom-4 -left-8 w-3/4 pointer-events-none select-none z-10 opacity-95" />
+    <!-- Nuages bas droite (retournés) -->
+    <img src="/cloud.png" alt="" aria-hidden="true"
+        class="absolute -bottom-4 -right-8 w-2/3 pointer-events-none select-none z-10 opacity-90 scale-x-[-1]" />
 
-    <!-- -- Calque drones (SVG LED cyan/ambre v1) -- -->
-    <img
-        src="/drone.svg"
-        alt=""
-        aria-hidden="true"
-        class="absolute top-0 left-0 w-full h-auto
-               pointer-events-none select-none z-20"
-    />
+    <!-- ── Calque drones ── -->
+    <!-- Haut droite -->
+    <img src="/drone.png" alt="" aria-hidden="true"
+        class="absolute top-[8%] right-[18%] w-14 pointer-events-none select-none z-20" />
+    <img src="/drone.png" alt="" aria-hidden="true"
+        class="absolute top-[16%] right-[5%] w-11 pointer-events-none select-none z-20" />
+    <!-- Haut gauche -->
+    <img src="/drone.png" alt="" aria-hidden="true"
+        class="absolute top-[13%] left-[8%] w-13 pointer-events-none select-none z-20" />
+    <img src="/drone.png" alt="" aria-hidden="true"
+        class="absolute top-[28%] left-[3%] w-10 pointer-events-none select-none z-20" />
+    <!-- Milieu droite -->
+    <img src="/drone.png" alt="" aria-hidden="true"
+        class="absolute top-[47%] right-[4%] w-12 pointer-events-none select-none z-20" />
+    <!-- Milieu gauche -->
+    <img src="/drone.png" alt="" aria-hidden="true"
+        class="absolute top-[57%] left-[5%] w-13 pointer-events-none select-none z-20" />
+    <!-- Bas droite -->
+    <img src="/drone.png" alt="" aria-hidden="true"
+        class="absolute top-[71%] right-[18%] w-11 pointer-events-none select-none z-20" />
+    <img src="/drone.png" alt="" aria-hidden="true"
+        class="absolute top-[82%] right-[6%] w-12 pointer-events-none select-none z-20" />
+    <!-- Bas gauche -->
+    <img src="/drone.png" alt="" aria-hidden="true"
+        class="absolute top-[76%] left-[18%] w-12 pointer-events-none select-none z-20" />
 
-    <!-- -- Contenu principal -- -->
+    <!-- ── Contenu principal ── -->
     <div
         class="relative z-30 flex flex-col items-center
                min-h-screen pt-24 pb-16 px-6"
     >
-        <!-- DJ circle � occupe la moiti� haute -->
+        <!-- Personnage DJ centré dans un cercle lumineux — occupe la moitié haute -->
         <div class="flex-1 flex items-center justify-center w-full">
             <div
                 class="relative flex items-center justify-center
@@ -42,24 +67,12 @@
                        shadow-[0_0_90px_45px_rgba(111,66,193,0.45)]"
             >
                 <img
-                    src="/logo.png"
-                    alt="Personnage DJ du Lumimix Festival avec �couteurs sur des platines"
+                    src="/character.png"
+                    alt="Personnage DJ du Lumimix Festival avec écouteurs sur des platines"
                     class="w-[90%] h-[90%] object-contain drop-shadow-[0_4px_16px_rgba(0,0,0,0.4)]"
                 />
             </div>
         </div>
-
-        <!-- Titre "LUMIMIX FESTIVAL" en lettres creuses -->
-        <p
-            class="text-center font-black uppercase tracking-widest leading-none
-                   text-[clamp(1.8rem,8vw,3.5rem)]
-                   text-transparent
-                   drop-shadow-[0_2px_6px_rgba(0,0,0,0.3)]
-                   mt-6 mb-6"
-            style="-webkit-text-stroke: 2px white;"
-        >
-            LUMIMIX FESTIVAL
-        </p>
 
         <!-- Tagline -->
         <p
@@ -68,9 +81,9 @@
                    text-2xl sm:text-3xl
                    drop-shadow-[0_2px_10px_rgba(0,0,0,0.55)]"
         >
-            OSE LA LUMI�RE,<br />
+            OSE LA LUMIÈRE,<br />
             OSE LE SONVIENS<br />
-            VIVRE LA NUIT � LUMIMIX
+            VIVRE LA NUIT À LUMIMIX
         </p>
     </div>
 </section>

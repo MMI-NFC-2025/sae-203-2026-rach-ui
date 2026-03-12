@@ -11,6 +11,7 @@
 
 import Layout from "../../layouts/Layout.astro";
 import Footer from "../../components/Footer.astro";
+import { pb, getFileUrl } from "../../lib/pocketbase";
 
 const { id } = Astro.params;
 
@@ -101,13 +102,7 @@ const fallbacks: Record<string, Artiste> = {
 let artiste: Artiste | null = null;
 
 try {
-    const res = await fetch(
-        `http://127.0.0.1:8090/api/collections/artistes/records/${id}`,
-        { signal: AbortSignal.timeout(3000) },
-    );
-    if (res.ok) {
-        artiste = await res.json();
-    }
+    artiste = await pb.collection("artistes").getOne(id!) as unknown as Artiste;
 } catch {
     /* fallback */
 }
@@ -121,10 +116,7 @@ if (!artiste) {
     return Astro.redirect("/404");
 }
 
-const imageUrl =
-    artiste.image && artiste.collectionId
-        ? `http://127.0.0.1:8090/api/files/${artiste.collectionId}/${artiste.id}/${artiste.image}`
-        : "";
+const imageUrl = getFileUrl(artiste as any, artiste.image);
 
 const bioParagraphes = artiste.bio.split("\n").filter(Boolean);
 const lumimixParagraphes = artiste.lumimix_texte.split("\n").filter(Boolean);
