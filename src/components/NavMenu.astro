@@ -34,34 +34,27 @@
     transition-transform duration-300 ease-in-out
     min-h-screen w-full"
 >
-    <!-- ── Top bar: Logo + Close button ── -->
-    <header
-        class="grid grid-cols-[auto_1fr_auto] items-center gap-4 px-4 pt-4 pb-2"
-    >
-        <!-- Logo -->
+    <!-- ── Top bar: Logo centré + Close button ── -->
+    <header class="relative flex items-center justify-center px-4 pt-4 pb-2 min-h-18">
+        <!-- Logo centré -->
         <a
             href="/"
             aria-label="Lumimix Festival — Accueil"
-            class="flex items-center gap-2 group focus:outline-none focus-visible:ring-2 focus-visible:ring-black rounded-full"
+            class="flex items-center justify-center group focus:outline-none focus-visible:ring-2 focus-visible:ring-black rounded-full"
         >
             <img
-                src="/logo.png"
+                src="/logo lumimixe 1 (1).png"
                 alt="Lumimix Festival logo"
-                width="56"
-                height="56"
-                class="w-14 h-14 object-contain rounded-full group-hover:opacity-80 transition-opacity"
+                class="h-14 w-auto object-contain group-hover:opacity-80 transition-opacity"
             />
         </a>
-
-        <!-- Spacer -->
-        <span></span>
 
         <!-- Close button (✕) -->
         <button
             id="close-nav-menu"
             type="button"
             aria-label="Fermer le menu"
-            class="flex items-center justify-center
+            class="absolute right-4 flex items-center justify-center
         w-10 h-10
         text-3xl leading-none font-light text-black
         hover:opacity-50 active:scale-90
